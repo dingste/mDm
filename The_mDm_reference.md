@@ -385,5 +385,5 @@ In conclusion, our exploration of mDm today has unveiled a language with the pot
 
 ## References
 
-- [mDm Programming Language](https://github.com/mDm-lang/mDm)
-- [mDm Programming Language Documentation](https://github.com/mDm-lang/mDm/blob/main/docs/m
+- [mDm Programming Language](https://github.com/dingste/mDm)
+- [mDm Programming Language Documentation](hhttps://github.com/dingste/mDm/The_mDm_reference.md)
