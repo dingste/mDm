@@ -1,0 +1,27 @@
+/// Input
+_, int, userAge
+
+/// Processing with Conditional Statement
+(userAge; 18), if >=, ("Adult", print,_)
+
+/// Conditional Statement
+(userInput; 18), if >=, (
+    "Adult", print, _
+)
+
+/// Conditional Statement
+(userInput; 18), if not, (
+    "Child", print, _
+    )
+
+/// Variable
+0, int, proofme
+
+/// unknown input, so output will be both '_'
+(_;5), if <, 1
+(_;5), if >, 2
+
+/// known input, so output will be '1'
+(proofme;5), if <, 1
+/// known input, so output will be '_', cause of not true
+(proofme;5), if >, 2

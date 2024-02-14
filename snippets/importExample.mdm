@@ -1,0 +1,15 @@
+/// Import Standard Library Modules
+(iostream), import, IO
+
+/// Define a Simple Add Function
+(a; b), add, result
+    /// Use clear, concise naming and structure for the function
+
+/// Main Program Flow
+_, (
+    5, int, num1
+    10, int, num2
+    (num1; num2), add, sum
+    sum, print, IO:::cout  /// Explicit output operation
+), main
+    /// Include meaningful comments to explain the logic

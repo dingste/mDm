@@ -1,0 +1,9 @@
+/// Defining a memory location interpretation
+(0x01, dNib, content),(
+    (content,dNib::undefined), if =, _
+     (content,dNib::address), if =, (*content,memoryInterpretation,_)
+      (content,dNib::endOfType), if =, &content
+), memoryInterpretation
+
+memoryInterpretation, int, memoryInterpretationAsInteger
+memoryInterpretation, char, memoryInterpretationAsChar

@@ -145,27 +145,10 @@ note right of content : content kodiert beliebigen Inhalt\n(registerbreite minus
 @enduml
 ```
 
-Memory Representation with dNibs
-```mDm
-((_;_;_;_),boolarray,nibble),(
-(nibble;1), at, undefined
-(nibble;2), at, address
-(nibble;3), at, endOfType
-),dNib
+Memory Representation with 
+[dNibs](snippets/dNibs.mDm)
+[memoryInterpretation](snippets/memoryInterpretation.mDm)
 
-```
-
-```mDm
-/// Defining a memory location interpretation
-(0x01, dNib, content),(
-    (content,dNib::undefined), if =, _
-     (content,dNib::address), if =, (*content,memoryInterpretation,_)
-      (content,dNib::endOfType), if =, &content
-), memoryInterpretation
-
-memoryInterpretation, int, memoryInterpretationAsInteger
-memoryInterpretation, char, memoryInterpretationAsChar
-```
 Data Types as First-Class Citizens
 In mDm, even fundamental data types like integers (int), floating-point numbers (float), and characters (char) are treated as constructs that must be explicitly interpreted using functions or type definitions. There is no inherent meaning to raw memory content; it gains significance only when paired with a type-defining dSeq (direct sequence) or function.
 
@@ -207,7 +190,7 @@ Das Kapitel über Funktionskörper in der mDm Programmiersprache illustriert die
 
 Die Definition einer Funktion in mDm folgt dem Schema:
 
-```
+```mDm
 FUNKTIONSPARAMETER,(
     FUNKTIONSKÖRPER
 ),FUNKTIONSNAME
@@ -216,19 +199,10 @@ FUNKTIONSPARAMETER,(
 Dies entspricht dem Modell: Eingabe, Verarbeitung, Ausgabe. An der Speicherstelle `FUNKTIONSNAME` liegt das Ergebnis, also der Returnwert der Funktion, als letzter Verarbeitungsschritt an. 
 Ein einfaches Beispiel könnte eine Funktion sein, die zwei Zahlen addiert, gleich einer Dekleration:
 
-```mDm
-(a; b),(
-    a + b
-),addiere
-```
+[math](snippets/math.mDm)
 
 In diesem Beispiel sind `a` und `b` die Eingabeparameter für die Funktion. Der Funktionskörper führt die Addition durch (`a + b`), und das Ergebnis dieser Verarbeitung wird unter dem Funktionsnamen `addiere` abgelegt.
 Um eine solche Funktion aufzurufen und das Ergebnis zu nutzen, könnte der Code wie folgt aussehen, gleich einer implementierung:
-
-```mDm
-(5; 3), addiere, ergebnis
-```
-
 Hier werden `5` und `3` als Eingabeparameter an die Funktion `addiere` übergeben. Das Ergebnis der Addition wird in der Variablen `ergebnis` gespeichert.
 
 #### Importing
@@ -245,28 +219,7 @@ mDm defines clear rules for importing and exporting code elements to manage depe
 
   - An export statement in mDm clearly marks which components are intended for external use, potentially using syntax. existing of dSeq (direct sequence)s in same memory region, they are inherent exported, cause of all dSeq (direct sequence)s are public in that memory. outside of own memory region, the dSeq (direct sequence)s arn't resolved.
 
-```mDm
-/// Import Standard Library Modules
-(iostream), import, IO
-
-/// Define a Simple Add Function
-(a; b), add, result
-    /// Use clear, concise naming and structure for the function
-
-/// Main Program Flow
-_, (
-    5, int, num1
-    10, int, num2
-    (num1; num2), add, sum
-    sum, print, IO:::cout  /// Explicit output operation
-), main
-    /// Include meaningful comments to explain the logic
-```
-
-- **mDm Example**: Importing a module.
-  ```mDm
-  (mymodule), import, _
-  ```
+- **mDm Example**: [Importing a module](snippets/importExample.mdm).
 
 #### Declaring (Variables / Types)
 Variable and type declarations in mDm follow a structured syntax, enhancing clarity and modularity.
@@ -280,68 +233,18 @@ mDm's approach to programming language design is ambitious and innovative, drawi
 
 The declaration of common data types in mDm emphasizes the language's structured and modular design. Here are examples of how various data types can be declared:
 
-##### Integer
+[Type example](snippets/types.mDm)
 
-```mDm
-0, int, myInteger
-```
+##### Integer
 
 ##### String
 
-```mDm
-"Hello, mDm!", string, myString
-```
-
 ##### Boolean
-
-```mDm
-true, bool, myBool
-```
 
 ##### List
 
-Lists or arrays are declared by specifying their elements within parentheses, followed by `list`, and an identifier:
-
-```mDm
-/// liste mit definierter größe (5) und unbekanntem inhalt (die gesamtgröße 
-ist damit auch unbekannt)
-
-(_;_;_;_;_), list, a
-
-/// liste mit definierter größe (5) und bekanntem inhalt (die gesamtgröße 
-ist unbekannt, kann aber mit int angenommen werden)
-
-(1;2;3;4;5), list, b
-
-/// liste mit definierter größe (5) und bekanntem inhalt (die gesamtgröße 
-ist vollumfänglich definiert 5* int)
-
-((1,int,_);(2,int,_);(3,int,_);(4,int,_);(5,int,_)), list, c
-
-/// liste mit definierter größe (3) und bekanntem inhalt (die gesamtgröße 
-ist vollumfänglich definiert 1* int + 1*char + 1*string)
-
-((1,int,_);("2",char,_);("345",string,_)), list, d
-
-/// liste mit definierter größe (3) und bekanntem inhalt (die gesamtgröße 
-ist vollumfänglich definiert 1* int + 1*char + 1*string), 
-listenelemente haben einen ausgabebezeichner. listenelemente sind durch 
-e:::id oder e:::name direkt ansprechbar und sind damit einem struct 
-oder onion in c/c++ ähnlich
-
-((1,int,id);("2",char,amount);("345",string,name)), list, e
-```
-
-```mDm
-(1;2;3;4;5), list, myList
-```
-
-####### Complex Types (Struct-like)
+###### Complex Types (Struct-like)
 mDm allows for the definition of complex data types, akin to structs in C or objects in other object-oriented languages. This can be done by defining a sequence of elements, each with its own type and identifier, grouped together:
-
-```mDm
-((1,int,id);("2",char,amount);("345",string,name)), list, myComplexType
-```
 
 This syntax showcases mDm's unique approach to programming language design, focusing on clarity, modularity, and the seamless integration of structured programming principles. It's designed to encourage developers to think about the flow of data through their programs, making the development process more intuitive and aligned with computational theory.
 
@@ -362,12 +265,6 @@ gleiches gilt für: dSeq (direct sequence)s, list, ...
 
 In the conceptual framework of mDm, type safety and type inference are critical features designed to enhance the language's reliability, readability, and ease of use. These features align with mDm's overarching goals of structured programming, modularity, and clarity.
 
-
-- **mDm Example**: Declaring an integer variable.
-  ```mDm
-  (0, int, counter)
-  ```
-
 #### Counting
 Demonstrates handling numeric operations and counters in mDm.
 
@@ -381,25 +278,7 @@ Demonstrates handling numeric operations and counters in mDm.
 Showcases basic arithmetic and logical operations within the structured syntax of mDm.
 mDm's capability to perform arithmetic operations is shown in this straightforward example, demonstrating the language's approach to basic mathematical tasks.
 
-```mDm
-/// Definition of Variables
-3, int, x
-4, int, y
-_, int, z
-
-/// Addition
-(x;y), add, z
-
-/// Multiplication
-(x;y), mul, z
-```
-
 By specifying the inputs, operation, and output, mDm maintains clarity and precision in expressing arithmetic, adhering to its structured programming model.
-
-- **mDm Example**: Adding two numbers.
-  ```mDm
-  (5; 3), add, result
-  ```
 
 #### Conditions
 Conditional statements in mDm allow for decision-making based on dynamic data.
@@ -411,55 +290,14 @@ wahren inhalt zu prüfen und für die weitere verarbeitung entscheidbar
 zu machen.
 Implementing conditional logic in mDm, this example handles decision-making based on user input, showcasing the language's support for dynamic and conditional operations.
 
-```mDm
-/// Input
-_, int, userAge
-
-/// Processing with Conditional Statement
-(userAge; 18), if >=, ("Adult", print,_)
-```
-
 Control structures, including conditional statements, are represented in mDm using a similar dSeq (direct sequence) syntax, which integrates seamlessly with the language's structured programming approach. Conditionals are defined by specifying the condition as part of the input, the evaluation as the process, and the consequent action as the output.
-
-```mDm
-/// Conditional Statement
-(userInput; 18), if >=, (
-    "Adult", print, _
-)
-```
-
-or
-
-```mDm
-/// Conditional Statement
-(userInput; 18), if not, (
-    "Child", print, _
-)
-```
 
 This snippet illustrates a conditional check on `userInput` to determine if it is greater than or equal to 18, and prints "Adult" if the condition is true.
 
 The conditional operation `if >=` demonstrates mDm's ability to execute different paths based on runtime conditions, a crucial feature for responsive programs.
 mDm handles loops, control structures, iteration, and recursion within its unique framework of dSeq (direct sequence)s and the IPO (Input, Processing, Output) model, adhering to its structured approach to programming. The language's design principles facilitate clear and concise representation of these constructs, emphasizing modularity and predictability. 
 
-```mDm
-/// Variable
-0, int, proofme
-
-/// unknown input, so output will be both '_'
-(_;5), if <, 1
-(_;5), if >, 2
-
-/// known input, so output will be '1'
-(proofme;5), if <, 1
-/// known input, so output will be '_', cause of not true
-(proofme;5), if >, 2
-```
-
-- **mDm Example**: Checking if a number is greater than 10.
-  ```mDm
-  (number; 10), if >, (print, "Greater"), else, (print, "Less or Equal")
-  ```
+[Condition examples](snippets/conditions.mDm)
 
 #### Looping
 Loop constructs in mDm facilitate iterative operations within the IPO model.
@@ -476,65 +314,15 @@ mDm introduces a unique syntax for conditional statements and loops, maintaining
 'for'-schleifen sind nicht notwendig. mit 'while' lassen sich alle
 bedingungen und schleifenkörber konstrukte abbilden.
 
-```mDm
-/// Variable
-0, int, counter
-(2;4;6;10;1;456), list, listofitems
-_, int, output
-
-/// Loop Construct till counter < 10
-/// cause of listofitems only 6 items counts, since the 7th output will 
-be _
-_, ( (counter; 10), while <, (
-    /// Loop Body: Increment counter
-    (counter; 1), add, counter
-    (listofitems;counter), at, output
-) ), output
-```
-
-```mDm
-/// Loop bis counter kleiner als ein spezifischer Wert ist
-_, ( (counter; spezifischerWert), while <, (
-    /// Schleifenkörper: Aktionen
-) ), output
-```
+[Loop with while](snippets/looping.mDm)
 
 Loops in mDm are implemented through dSeq (direct sequence)s that specify the conditions for iteration. The language uses a structured approach to define loop conditions and actions, aligning with the IPO model. For instance, a `while` loop construct might look like this:
-
-```mDm
-/// Loop Initialization
-0, int, counter
-
-/// Loop Construct
-(counter; 10), while <, (
-    /// Loop Body: Increment counter
-    (counter; 1), add, counter
-)
-```
 
 This example demonstrates a loop that increments `counter` until it is less than 10, showcasing how loop conditions and bodies are defined within the dSeq (direct sequence) framework.
 Looping is a fundamental aspect of programming, allowing for repeated execution of a block of code. This example outlines a simple loop structure in mDm.
 
-```mDm
-/// Counter Variable
-0, int, counter
-
-/// Loop Construct
-(counter; 10), while <, (
-    /// Loop Body: Increment counter
-    (counter; 1), add, counter
-)
-```
-
 Here, the `while <` construct illustrates how mDm implements loops, using its structured syntax to define loop conditions and actions clearly.
 
-
-```mDm
-/// Loop bis counter gleich einem spezifischen Wert ist
-_, ( (counter; spezifischerWert), while =, (
-    /// Schleifenkörper: Aktionen
-) ), output
-```
 
 ##### Iteration
 

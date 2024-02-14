@@ -1,0 +1,5 @@
+((_;_;_;_),boolarray,nibble),(
+(nibble;1), at, undefined
+(nibble;2), at, address
+(nibble;3), at, endOfType
+),dNib
