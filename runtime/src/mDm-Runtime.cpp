@@ -18,6 +18,21 @@ void processExampledSeq(std::vector<std::any> &inputs)
     }
 }
 
+void VirtualMemoryManager::writeData(size_t address, uint32_t data) {
+    // Maskiere die oberen 4 Bits, um nur 28 Bit zu nutzen
+    data &= 0x0FFFFFFF;
+    // Schreibe die Daten
+}
+
+uint32_t VirtualMemoryManager::readData(size_t address) {
+    uint32_t data = 0; // Lesevorgang;
+    // Es ist wichtig, nur die relevanten 28 Bits zu betrachten
+    return data & 0x0FFFFFFF;
+}
+
+
+
+
 int main()
 {
     RuntimeEnvironment env;

@@ -11,6 +11,15 @@
 #include <exception>
 #include "mDm-AST.h"
 
+struct DataBlock {
+    unsigned char dNib; // 4 Bit genutzt, Rest ungenutzt oder für andere Flags
+// dNib werden aus data maskiert!
+    uint32_t data; // 28 Bit für Daten, restliche Bits für Erweiterungen oder Flags
+
+    DataBlock(unsigned char d, uint32_t dt) : dNib(d), data(dt) {}
+};
+
+
 class dSeqException : public std::exception
 {
 public:
@@ -23,6 +32,21 @@ public:
 private:
     std::string msg_;
 };
+
+class VirtualMemoryManager {
+private:
+    std::vector<unsigned char> memory;
+
+public:
+    VirtualMemoryManager(size_t initialSize) : memory(initialSize) {}
+
+    // Methoden zum Lesen/Schreiben von Daten
+    void writeData(size_t address, uint32_t data);
+    uint32_t readData(size_t address);
+
+    // Weitere Verwaltungsmethoden...
+};
+
 
 /*
 ```mDm

@@ -3,3 +3,12 @@
 (nibble;2), at, address
 (nibble;3), at, endOfType
 ),dNib
+
+///Understanding the Snippet
+///    Initialization of a boolarray with Undefined Values:
+///        The expression ((_;_;_;_),boolarray,nibble) appears to initialize a boolarray with a size of 4, where each element is initially undefined (_). This boolarray is then associated with a nibble, indicating that this array is meant to represent the structure or state of a dNib. In mDm, a nibble typically consists of 4 bits, hence the array size of 4 to represent each possible state or flag within the dNib.
+///    Defining the dNib Structure:
+///        Following the initialization, the snippet uses a direct sequence (dSeq) to define operations on the nibble based on its position, which corresponds to different interpretations or flags within the dNib:
+///            (nibble;1), at, undefined: This line seems to indicate accessing the first bit of the nibble to represent or check for an undefined state.
+///            (nibble;2), at, address: This suggests the second bit is used to denote an address or possibly a marker for the start of a data type or structure.
+///            (nibble;3), at, endOfType: Implies that the third bit flags the end of a type, which could be used to signal the boundaries of data structures or types in memory.

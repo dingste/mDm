@@ -91,7 +91,8 @@ dState refers to each phase within a dSeq, detailing the specific actions in the
 
 - **mDm Example**: Specifying states within a dSeq.
   ```mDm
-  (input), validateInput, processed; (processed), computeOutput, result
+  input, validateInput, processed
+  processed, computeOutput, result
   ```
 
 #### dNib
@@ -106,6 +107,36 @@ If it represents the last significant bit position of a data type (.)
 Lock/mutex status (indicated by ~) for synchronization purposes
 Reserved for future use (bit 3, currently unspecified)
 For instance, here's how data might be represented using a dNib:
+
+```graphviz
+digraph G {
+    node [shape=record, fontsize=10];
+
+    subgraph cluster_0 {
+        label = "Direkte Referenzierung";
+        Node1 [label="{dNib|Daten (28 Bit)}"];
+    }
+
+    subgraph cluster_1 {
+        label = "Indirekte Referenzierung (Liste)";
+        Node2 [label="{dNib|Adresse}"];
+        Node3 [label="{dNib|Adresse}"];
+        Node4 [label="{dNib|Ende}"];
+
+        Node2 -> Node3 [label="zeigt auf"];
+        Node3 -> Node4 [label="zeigt auf"];
+    }
+
+    subgraph cluster_2 {
+        label = "Datenbereich für indirekte Referenzierung";
+        Data1 [label="{Daten}"];
+        Data2 [label="{Daten}"];
+
+        Node2 -> Data1 [label="referenziert", style=dashed];
+        Node3 -> Data2 [label="referenziert", style=dashed];
+    }
+}
+```
 
 ```plantuml
 @startuml
@@ -145,6 +176,23 @@ note right of content : content kodiert beliebigen Inhalt\n(registerbreite minus
 @enduml
 ```
 
+```graphiz
+digraph G {
+    node [shape=record, fontsize=12];
+
+    address [label="{dNib (als Adresse) | Adresse zu Daten}"];
+    data1 [label="{Daten (28 Bit) | char: 'A'}"];
+    data2 [label="{Daten (28 Bit) | numerical: 1234}"];
+    data3 [label="{Daten (28 Bit) | Adresse zu weiteren Daten}"];
+    string [label="... | char[n]: '!'"];
+
+    address -> data1;
+    address -> data2;
+    data3 -> string;
+}
+
+```
+
 Memory Representation with 
 [dNibs](snippets/dNibs.mDm)
 [memoryInterpretation](snippets/memoryInterpretation.mDm)
@@ -161,15 +209,34 @@ Ensuring type safety is a cornerstone of mDm's design. Each operation that retri
 /// Validate memory content as an integer before proceeding
 (0x01, _, memoryLocation), validateInt, safeIntOperation
 ```
+
 Conclusion
 The inclusion of dNibs in mDm establishes a methodical and secure framework for managing memory, effectively addressing one of the most prevalent sources of programmatic errors in software development. By mandating explicit definitions and operations, mDm leverages structured programming principles to enforce clarity, predictability, and reliability in code execution.
+##### Dynamische Speicherverwaltung
+
+Durch die Möglichkeit, Daten entweder direkt oder über Adressverweise (indirekt) zu speichern, kann das System dynamisch entscheiden, wie und wo Speicher alloziert wird. Für kleine Datenwerte, die direkt neben dem dNib passen, kann Speicherplatz eingespart werden, da keine zusätzlichen Verweise nötig sind. Größere Datenstrukturen oder solche, die dynamisch wachsen können, wie Listen oder Strings, nutzen indirekte Referenzierung, wodurch die Allokation von Speicher nach Bedarf und in variablen Größen möglich wird.
+##### Effiziente Nutzung des Speichers
+
+Die Trennung von Metadaten (dNib) und Daten ermöglicht eine effizientere Nutzung des Speichers. Da das dNib Informationen über den Datentyp und die Struktur trägt, kann der Speicher genau nach den Erfordernissen der Datenallokation angepasst werden, was zu einer Minimierung von verschwendetem Speicherplatz führt. Beispielsweise können leere oder undefinierte Bereiche leicht identifiziert und wiederverwendet oder überschrieben werden, ohne umfangreiche Garbage Collection durchführen zu müssen.
+##### Vereinfachung der Speicherfreigabe
+
+Die klare Kennzeichnung von Datenende und Typ durch das dNib erleichtert die Freigabe von Speicher. Wenn ein Datenblock nicht mehr benötigt wird, kann das System das dNib untersuchen, um zu bestimmen, wie und wo die Daten gespeichert sind (direkt oder indirekt), und den entsprechenden Speicher freigeben. Dies ist besonders nützlich in Umgebungen mit manueller Speicherverwaltung, kann aber auch automatisierte Garbage Collection-Verfahren unterstützen.
+##### Unterstützung für komplexe Datenstrukturen
+
+Die Verwendung von Adressverweisen ermöglicht die Erstellung komplexer, verknüpfter Datenstrukturen, wie verkettete Listen, Bäume und Graphen, ohne die Notwendigkeit, die gesamte Struktur in einem kontinuierlichen Speicherblock zu halten. Dies erleichtert die Allokation von Speicher für neue Elemente, da nur der Speicher für das Element selbst und nicht für die gesamte Struktur allokiert werden muss. Zudem können Strukturelemente im Speicher verteilt werden, was die Speichernutzung optimiert.
+##### Optimierung für spezifische Anwendungsfälle
+
+Durch die flexible Handhabung der Speicherallokation können Anwendungen spezifische Optimierungen vornehmen, beispielsweise indem häufig genutzte Datenstrukturen im Voraus alloziert und wiederverwendet werden. Dies reduziert die Notwendigkeit für ständige Allokationen und Freigaben von Speicher und verbessert die Gesamtleistung der Anwendung.
+##### Verbesserung der Speicherzugriffszeiten
+
+Indem Daten entsprechend ihrer Nutzung und Größe effizient im Speicher verteilt werden, können Speicherzugriffszeiten optimiert werden. Direkt referenzierte Daten bieten schnellen Zugriff für kleine Datenmengen, während indirekt referenzierte Strukturen die Flexibilität bieten, große und komplexe Daten effizient zu verwalten.
 
 - **mDm Example**: Using dNib for data interpretation.
   ```mDm
   (address, dNib::Type, content), defineData, usage
   ```
 
-#### Implicit is Wack!
+##### Implicit is Wack!
 Promoting explicit definitions over implicit assumptions, this principle in mDm aims to eliminate uncertainties in data type interpretation and usage.
 Eine detaillierte Erläuterung des Typsystems von mDm, einschließlich der unterstützten Datentypen (wie Integer, Float, String, Listen, usw.), sowie Regeln für Typkonversion und Typinferenz.
 mDm's approach to programming language design is ambitious and innovative, drawing inspiration from structured programming principles and incorporating modern features like macros, groupings, and advanced data handling. Let's dive into the detailed syntax description and how type declarations for common data types are structured in mDm, reflecting on its distinctive paradigm that focuses on input, processing, and output (dSeq (direct sequence)s).
@@ -235,13 +302,27 @@ The declaration of common data types in mDm emphasizes the language's structured
 
 [Type example](snippets/types.mDm)
 
-##### Integer
+
+Um auf Basis des dNib-Konzepts in mDm weitere Datentypen wie char, string, numerical, fraction, und list zu deklarieren, wobei jedem Wert ein dNib vorangestellt ist, kann man die Speicherstruktur und -interpretation entsprechend planen. Angesichts einer 32-Bit-Architektur, bei der nach Abzug des dNib 28 Bit für den eigentlichen Wert verbleiben, ergeben sich interessante Möglichkeiten für die Darstellung und Verwaltung dieser Typen. Hier ein Überblick über eine mögliche Implementierung dieser Datentypen unter Berücksichtigung des dNib:
+Char
+
+    Ein char könnte direkt in den verbleibenden 28 Bit gespeichert werden, wobei das dNib Informationen über den Typ (z.B. dass es sich um ein Zeichen handelt) und möglicherweise über die Codierung enthält. Bei Bedarf könnten Zeichen, die mehr als 28 Bit erfordern, über mehrere Speicherstellen verteilt werden, mit einem fortlaufenden dNib, das anzeigt, dass das Zeichen über die erste Speicherstelle hinausgeht.
 
 ##### String
 
-##### Boolean
+    Ein string würde aus einer Sequenz von char bestehen, wobei jedes Zeichen sein eigenes dNib besitzt. Das EndOfTyp-dNib am Ende des Strings signalisiert das Ende der Zeichenkette. Für längere Texte, die mehrere Speicherstellen benötigen, würden fortlaufende dNibs die Zugehörigkeit zum gleichen String anzeigen, bis ein dNib mit der Markierung EndOfType das Ende kennzeichnet.
+
+##### Numerical
+
+    Numerische Typen (int, float etc.) würden ähnlich behandelt. Ein numerical könnte in 28 Bit oder über mehrere Speicherstellen für größere Genauigkeit oder Wertebereiche verteilt werden. Das dNib würde hierbei den Typ (z.B. Ganzzahl oder Fließkommazahl) und das Ende der Zahl (EndOfType) markieren.
+
+##### Fraction
+
+    Eine fraction (Bruch) könnte als zwei numerical Werte dargestellt werden, einer für den Zähler und einer für den Nenner, jeweils mit eigenen dNibs. Ein drittes dNib könnte das Ende der fraction markieren und somit die beiden Teile als zusammengehörig definieren.
 
 ##### List
+
+    Eine list wäre eine Sequenz von Werten (z.B. char, numerical, andere lists), wobei jedes Element durch ein dNib gekennzeichnet ist. Das Ende einer Liste würde durch ein EndOfType-dNib gekennzeichnet. Für verschachtelte Listen würde jedes Listenelement sein eigenes dNib haben, das den Beginn einer neuen Liste markiert, gefolgt von den Elementen dieser Unternliste, bis ein EndOfType-dNib das Ende anzeigt.
 
 ###### Complex Types (Struct-like)
 mDm allows for the definition of complex data types, akin to structs in C or objects in other object-oriented languages. This can be done by defining a sequence of elements, each with its own type and identifier, grouped together:
