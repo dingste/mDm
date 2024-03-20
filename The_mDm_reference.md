@@ -1,15 +1,17 @@
-# mDm: A Comprehensive Guide to a Structured Programming Language
+# mDm: move da' machine
+- A Comprehensive Guide to a Structured Programming Language Paradigma -
 
 ## Abstract
 The mDm programming language stands as a testament to the continuous evolution and innovation within the field of software development, aiming to bridge the gaps highlighted by the deficiencies in existing programming paradigms and languages. As outlined in the extensive discussion on the principles behind mDm, this language seeks to address the challenges of structured programming, modularity, and expressiveness, while incorporating the necessary feedback mechanisms and reducing the modeling gap that exists between the problem domain and the software solution.
-
-By emphasizing a structured approach to programming through the IPO model and direct sequences (dSeq), mDm not only simplifies the process of software development but also encourages clarity and predictability in program behavior. This adherence to structured programming principles ensures that developers can create more maintainable, readable, and robust applications, addressing some of the core deficiencies identified by Floyd and others regarding the need for a rich set of paradigms supported by programming languages.
-
-Moreover, mDm's innovative use of macros, groupings, and the scope operator ::: facilitates a level of modularity and reusability that is essential for modern software development practices. This approach aligns with the vision of creating a comprehensive language workbench where domain-specific languages (DSLs) and meta-programming play a crucial role in tailoring the programming environment to the specific needs of the problem domain.
+Vielmehr kann mit mDm jedes Problem strukturiert und in kleinere Teilprobleme aufgespalten werden. Visavice können Teillösungen zu einem größeren Ganzen kombiniert werden.
 
 The integration of feedback mechanisms and the emphasis on reducing the modeling gap through expressive syntax and constructs in mDm reflect an understanding of the need for programming languages and environments to be more closely aligned with the way systems are conceptualized and designed. This is in line with the vision outlined by Krasemann, where the development process is supported by tools that provide instant feedback, allow for the direct manipulation of program structures, and support a seamless transition between design and implementation phases.
 
-In summary, mDm represents a forward-thinking approach to programming language design, one that seeks to embody the principles and vision for future programming paradigms and environments. By addressing the deficiencies of current languages, providing mechanisms for modularity and expressiveness, and emphasizing the importance of feedback and reduced modeling gaps, mDm offers a glimpse into the potential future of software development. As we continue to explore and innovate within the realm of programming languages, mDm serves as a valuable step toward realizing a more expressive, efficient, and user-friendly programming environment.
+By emphasizing a structured approach to programming through the IPO model and direct sequences (dSeq), mDm not only simplifies the process of software development but also encourages clarity and predictability in program behavior. This adherence to structured programming principles ensures that developers can create more maintainable, readable, and robust applications, addressing some of the core deficiencies identified by Floyd and others regarding the need for a rich set of paradigms supported by programming languages.
+
+Moreover, mDm's use of macros, groupings, and the scope operator ::: facilitates a level of modularity and reusability that is essential for modern software development practices. This approach aligns with the vision of creating a comprehensive language workbench where domain-specific languages (DSLs) and meta-programming play a crucial role in tailoring the programming environment to the specific needs of the problem domain.
+
+In summary, mDm represents a forward-thinking approach to programming language design, one that seeks to embody the principles and vision for future programming paradigms and environments. By addressing the deficiencies of current languages, providing mechanisms for modularity and expressiveness, and emphasizing the importance of feedback and reduced modeling gaps, mDm offers a glimpse into the potential future of software development. As we continue to explore and innovate within the realm of programming languages, mDm serves as a valuable step toward realizing a more expressive and efficient  programming environment.
 ([source] 07.05.2006
  Anforderungen an eine Programmiersprache
  H. Krasemann)
@@ -17,21 +19,21 @@ In summary, mDm represents a forward-thinking approach to programming language d
 ## Introduction
 
 Programming languages serve as the cornerstone of software development, translating human logic into machine-executable instructions. mDm emerges as a language built on the structured paradigm of input, processing, and output (IPO) modules, as a classic van neumann architecture computes. We name this tripartite dSeq (direct sequence). This architecture facilitates a clear separation of concerns, modular design, and enhanced readability, setting the stage for efficient and error-minimized coding practices.
-While no existing programming language directly matches the unique combination of features and paradigms proposed for mDm, many languages incorporate elements that resonate with its core principles. The design of mDm, as discussed, reflects a synthesis of structured programming, type safety, modularity, and an explicit IPO model, drawing inspiration from both functional and systems programming languages to address modern software development challenges. The continued evolution of programming languages and paradigms suggests that the exploration of new concepts like those in mDm remains a vital and ongoing process in computer science.
+While no existing programming language directly matches the unique combination of features and paradigms proposed for mDm, many languages incorporate elements that resonate with its core principles. The design of mDm, as discussed, reflects a synthesis of structured programming, type safety, modularity, and an explicit IPO model, drawing inspiration from both functional and systems programming languages to address modern software development challenges. Gerade die modularität wird jedes auszudrückendes Problem expliziter angegangen. 
 
 ### Core Concepts
 
 #### IPO Model
+Alle Zuammenhänge können durch die kleinstmögliche Definition im Ausdruck beschrieben. Quasi Top down.
 At the heart of mDm lies the IPO model, which segments programs into three distinct phases: input, processing, and output. Each phase, or dState of direct sequence, adheres to a strict sequence, ensuring a linear and logical progression through the program. This model not only simplifies the design and implementation of algorithms but also aligns closely with the computational theory, enhancing the language's intuitive appeal to developers.
-The IPO (Input, Processing, Output) model is a fundamental principle in mDm, organizing programs into three sequential phases: input, processing, and output. This model simplifies algorithm design and aligns with computational theory, enhancing intuitiveness for developers.
+The IPO (Input, Processing, Output) model is a fundamental principle in mDm, organizing programs/modules/types into three sequential phases: input, processing, and output. This model simplifies algorithm design and aligns with computational theory, enhancing intuitiveness for developers. Das Prinzip ist somit auch auf alle designbaren strukturen anwendbar, bis zu den gefürchteten "Black Boxes" und hinein.
 
-- **mDm Example**: A simple data processing sequence.
-  ```mDm
-  data, processData, results
-  ```
 
 #### dSeq
-dSeq, or direct sequence, represents the structured execution flow in mDm, encompassing the IPO model's phases within a single construct.
+das IPO paradigma ist selbstklärend. dennoch sollten einige begrifflichkeiten erwähnt und erklärt werden. Wie die: dSeq, or direct sequence, represents the structured execution flow in mDm, encompassing the IPO model's phases within a single construct.
+  ```mDm
+  data, process, result
+  ```
 ```plantuml
 @startuml
 skinparam monochrome true
@@ -50,10 +52,14 @@ Process -right-> Output
 dSeq (direct sequence)s bestehen immer(!) aus den 3 schritten:
  dSeq (direct sequence) = EINGABE, VERARBEITUNG, AUSGABE
 trennung der schritte durch ,. die schritte werden dState genannt.
-dSeq (direct sequence)s sind in sich geschlossen und es wird immer von einem dState sequenziell in dieser reihenfolge zum nächsten gesprungen. somit steht die eingabe oder parameter für eine operation vor der verarbeitung. das ergebnis der verarbeitung liegt am ausgang an.
+dSeq (direct sequence)s sind in sich geschlossen und es wird immer von einem dState sequenziell in dieser reihenfolge zum nächsten gesprungen. somit steht die eingabe oder parameter für eine operation vor der verarbeitung. das ergebnis der verarbeitung liegt instantan am ausgang an.
 dSeq (direct sequence)s können geklammert werden (EINGABE, VERARBEITUNG, AUSGABE) um sie verschachtelt in anderen dSeq (direct sequence)s zu verwenden.
 dSeq (direct sequence)s ist der einzige und fundamentale rechenschritt.
 in diesem sinne ist eine typendefinition, eine funktion oder ein ganzes programm eine immer eine dSeq.
+dSeq kann für deklerative zwecke benutzt werden oder auch zur implementierung. im programmier kontext unterscheiden sich die beiden:
+dekleration: (eingabetypen),funktionsname,(ausgabetypen)
+implementation: (eingangsvariabeln),(process logik), funktionsname
+
 verschachtelung in der form:
 ((dState, dState, dState), dState, dState)
 oder:
