@@ -1,0 +1,66 @@
+site_name: 'mDm: move da` machine'
+site_url: https://example.com
+site_description: A Comprehensive Guide to a Structured Programming Language Paradigma
+site_author: Dieter Steuten
+repo_url: https://github.com/dingste/mDm
+
+theme:
+  name: material
+#  custom_dir: 'theme'
+  palette:
+    primary: 'teal'
+    accent: 'teal'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+  favicon: theme/mDm.png
+  logo: theme/mDm.png
+
+#extra_css:
+#  - theme/css/custom.css
+
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - search
+#  - build_plantuml:
+#      render: 'local'
+#      bin_path: '/usr/bin/plantuml' 
+#      disable_ssl_certificate_validation: true 
+#      output_format: 'svg' # or "png"
+#      allow_multiple_roots: false 
+#      diagram_root: 'docs/diagrams'
+#      output_folder: 'out'
+#      input_folder: 'src'
+#      input_extensions: ''
+  - extra-sass
+  - with-pdf:
+      author: Dieter Steuten
+      copyright: dingste
+      cover: true
+      cover_logo: theme/mDm.png
+      back_cover: true
+      cover_title: 'mDm: move da` machine'
+      cover_subtitle: A Comprehensive Guide to a Structured Programming Language Paradigma
+      custom_template_path: 'theme'
+      output_path: ../The_mDm_Reference.pdf
+      verbose: false
+
+nav:
+  - Home: introduction.md
+  - Abstract: abstract.md
+  - Core Concepts:
+      - IPO Model: core-concepts/ipo-model.md
+      - dSeq: core-concepts/dseq.md
+      - dState: core-concepts/dstate.md
+      - dNib: core-concepts/dnib.md
+  - Advanced Topics:
+      - Memory Management: advanced-topics/memory-management.md
+      - Type System: advanced-topics/type-system.md
+      - Error Handling: advanced-topics/error-handling.md
+      - Unsort: advanced-topics/unsort.md
+  - Practical Examples:
+      - Implementing a Loop: practical-examples/implementing-a-loop.md
+      - Error Handling in mDm: practical-examples/error-handling.md
+  - Conclusion: conclusion.md
+

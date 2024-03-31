@@ -1,0 +1,1322 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A Comprehensive Guide to a Structured Programming Language Paradigma">
+      
+      
+        <meta name="author" content="Dieter Steuten">
+      
+      
+        <link rel="canonical" href="https://example.com/advanced-topics/unsort/">
+      
+      
+        <link rel="prev" href="../error-handling/">
+      
+      
+        <link rel="next" href="../../practical-examples/implementing-a-loop/">
+      
+      
+      <link rel="icon" href="../../theme/mDm.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+    
+    
+      
+        <title>Unsort - mDm: move da` machine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dynamische-speicherverwaltung" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="mDm: move da` machine" class="md-header__button md-logo" aria-label="mDm: move da` machine" data-md-component="logo">
+      
+  <img src="../../theme/mDm.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            mDm: move da` machine
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Unsort
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="mDm: move da` machine" class="md-nav__button md-logo" aria-label="mDm: move da` machine" data-md-component="logo">
+      
+  <img src="../../theme/mDm.png" alt="logo">
+
+    </a>
+    mDm: move da` machine
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../abstract/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Abstract
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Core Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Core Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-concepts/ipo-model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPO Model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-concepts/dseq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dSeq
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-concepts/dstate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dState
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core-concepts/dnib/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dNib
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Advanced Topics
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Topics
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memory-management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Memory Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../type-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Type System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error-handling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Error Handling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Unsort
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Unsort
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dynamische-speicherverwaltung" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamische Speicherverwaltung
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#effiziente-nutzung-des-speichers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Effiziente Nutzung des Speichers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vereinfachung-der-speicherfreigabe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vereinfachung der Speicherfreigabe
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unterstutzung-fur-komplexe-datenstrukturen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unterstützung für komplexe Datenstrukturen
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimierung-fur-spezifische-anwendungsfalle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimierung für spezifische Anwendungsfälle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verbesserung-der-speicherzugriffszeiten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verbesserung der Speicherzugriffszeiten
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implicit-is-wack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implicit is Wack!
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      Legacy Compare
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Legacy Compare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function body
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Importing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declaring-variables-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Declaring (Variables / Types)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Declaring (Variables / Types)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#string" class="md-nav__link">
+    <span class="md-ellipsis">
+      String
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numerical" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fraction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      List
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complex-types-struct-like" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complex Types (Struct-like)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-complex-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining Complex Data Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#counting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Counting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operating" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operating
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iteration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iteration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recursion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recursion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Practical Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Practical Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practical-examples/implementing-a-loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Implementing a Loop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../practical-examples/error-handling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Error Handling in mDm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conclusion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conclusion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dynamische-speicherverwaltung" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamische Speicherverwaltung
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#effiziente-nutzung-des-speichers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Effiziente Nutzung des Speichers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vereinfachung-der-speicherfreigabe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vereinfachung der Speicherfreigabe
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unterstutzung-fur-komplexe-datenstrukturen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unterstützung für komplexe Datenstrukturen
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimierung-fur-spezifische-anwendungsfalle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimierung für spezifische Anwendungsfälle
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verbesserung-der-speicherzugriffszeiten" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verbesserung der Speicherzugriffszeiten
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implicit-is-wack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implicit is Wack!
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      Legacy Compare
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Legacy Compare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#function-body" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function body
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Importing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declaring-variables-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Declaring (Variables / Types)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Declaring (Variables / Types)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#string" class="md-nav__link">
+    <span class="md-ellipsis">
+      String
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numerical" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fraction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      List
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complex-types-struct-like" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complex Types (Struct-like)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defining-complex-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defining Complex Data Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#counting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Counting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operating" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operating
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iteration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Iteration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recursion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recursion
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Unsort</h1>
+
+<h5 id="dynamische-speicherverwaltung">Dynamische Speicherverwaltung</h5>
+<p>Durch die Möglichkeit, Daten entweder direkt oder über Adressverweise (indirekt) zu speichern, kann das System dynamisch entscheiden, wie und wo Speicher alloziert wird. Für kleine Datenwerte, die direkt neben dem dNib passen, kann Speicherplatz eingespart werden, da keine zusätzlichen Verweise nötig sind. Größere Datenstrukturen oder solche, die dynamisch wachsen können, wie Listen oder Strings, nutzen indirekte Referenzierung, wodurch die Allokation von Speicher nach Bedarf und in variablen Größen möglich wird.</p>
+<h5 id="effiziente-nutzung-des-speichers">Effiziente Nutzung des Speichers</h5>
+<p>Die Trennung von Metadaten (dNib) und Daten ermöglicht eine effizientere Nutzung des Speichers. Da das dNib Informationen über den Datentyp und die Struktur trägt, kann der Speicher genau nach den Erfordernissen der Datenallokation angepasst werden, was zu einer Minimierung von verschwendetem Speicherplatz führt. Beispielsweise können leere oder undefinierte Bereiche leicht identifiziert und wiederverwendet oder überschrieben werden, ohne umfangreiche Garbage Collection durchführen zu müssen.</p>
+<h5 id="vereinfachung-der-speicherfreigabe">Vereinfachung der Speicherfreigabe</h5>
+<p>Die klare Kennzeichnung von Datenende und Typ durch das dNib erleichtert die Freigabe von Speicher. Wenn ein Datenblock nicht mehr benötigt wird, kann das System das dNib untersuchen, um zu bestimmen, wie und wo die Daten gespeichert sind (direkt oder indirekt), und den entsprechenden Speicher freigeben. Dies ist besonders nützlich in Umgebungen mit manueller Speicherverwaltung, kann aber auch automatisierte Garbage Collection-Verfahren unterstützen.</p>
+<h5 id="unterstutzung-fur-komplexe-datenstrukturen">Unterstützung für komplexe Datenstrukturen</h5>
+<p>Die Verwendung von Adressverweisen ermöglicht die Erstellung komplexer, verknüpfter Datenstrukturen, wie verkettete Listen, Bäume und Graphen, ohne die Notwendigkeit, die gesamte Struktur in einem kontinuierlichen Speicherblock zu halten. Dies erleichtert die Allokation von Speicher für neue Elemente, da nur der Speicher für das Element selbst und nicht für die gesamte Struktur allokiert werden muss. Zudem können Strukturelemente im Speicher verteilt werden, was die Speichernutzung optimiert.</p>
+<h5 id="optimierung-fur-spezifische-anwendungsfalle">Optimierung für spezifische Anwendungsfälle</h5>
+<p>Durch die flexible Handhabung der Speicherallokation können Anwendungen spezifische Optimierungen vornehmen, beispielsweise indem häufig genutzte Datenstrukturen im Voraus alloziert und wiederverwendet werden. Dies reduziert die Notwendigkeit für ständige Allokationen und Freigaben von Speicher und verbessert die Gesamtleistung der Anwendung.</p>
+<h5 id="verbesserung-der-speicherzugriffszeiten">Verbesserung der Speicherzugriffszeiten</h5>
+<p>Indem Daten entsprechend ihrer Nutzung und Größe effizient im Speicher verteilt werden, können Speicherzugriffszeiten optimiert werden. Direkt referenzierte Daten bieten schnellen Zugriff für kleine Datenmengen, während indirekt referenzierte Strukturen die Flexibilität bieten, große und komplexe Daten effizient zu verwalten.</p>
+<ul>
+<li><strong>mDm Example</strong>: Using dNib for data interpretation.
+  <code>mDm
+  (address, dNib::Type, content), defineData, usage</code></li>
+</ul>
+<h5 id="implicit-is-wack">Implicit is Wack!</h5>
+<p>Promoting explicit definitions over implicit assumptions, this principle in mDm aims to eliminate uncertainties in data type interpretation and usage.
+Eine detaillierte Erläuterung des Typsystems von mDm, einschließlich der unterstützten Datentypen (wie Integer, Float, String, Listen, usw.), sowie Regeln für Typkonversion und Typinferenz.
+mDm's approach to programming language design is ambitious and innovative, drawing inspiration from structured programming principles and incorporating modern features like macros, groupings, and advanced data handling. Let's dive into the detailed syntax description and how type declarations for common data types are structured in mDm, reflecting on its distinctive paradigm that focuses on input, processing, and output (dSeq (direct sequence)s).</p>
+<ul>
+<li><strong>Type Annotations in dSeq (direct sequence)s</strong>: In defining dSeq (direct sequence)s, type annotations can be used to explicitly declare the types of inputs, processing steps, and outputs. This clarity supports mDm's goal of making each dSeq (direct sequence) self-contained and understandable.</li>
+<li><strong>Type Safety in Modular Design</strong>: The modular design of mDm, with its emphasis on modules, packages, and namespaces, would leverage type safety to ensure that interfaces between different parts of the program are correctly used and that data is appropriately shared or isolated.</li>
+<li><strong>Type Inference for Ease of Use</strong>: Type inference would be particularly useful in making mDm code concise and expressive, especially when writing complex operations or algorithms where the types can be clearly inferred from the context.</li>
+<li></li>
+<li><strong>mDm Example</strong>: Explicitly defining a variable type.
+  <code>mDm
+  (42, int, myVariable)</code></li>
+</ul>
+<h3 id="legacy-compare">Legacy Compare</h3>
+<h4 id="function-body">Function body</h4>
+<p>Das Kapitel über Funktionskörper in der mDm Programmiersprache illustriert die Art und Weise, wie Funktionen definiert und verwendet werden. In mDm wird jede Funktion oder dState (direkte Sequenz) als eine Struktur mit drei Hauptteilen betrachtet: Eingabe, Verarbeitung und Ausgabe. Dies folgt dem grundlegenden Prinzip von mDm, das Programmieren durch klare und strukturierte Abläufe zu vereinfachen.</p>
+<p>Die Definition einer Funktion in mDm folgt dem Schema:</p>
+<pre><code class="language-mDm">FUNKTIONSPARAMETER,(
+    FUNKTIONSKÖRPER
+),FUNKTIONSNAME
+</code></pre>
+<p>Dies entspricht dem Modell: Eingabe, Verarbeitung, Ausgabe. An der Speicherstelle <code>FUNKTIONSNAME</code> liegt das Ergebnis, also der Returnwert der Funktion, als letzter Verarbeitungsschritt an. 
+Ein einfaches Beispiel könnte eine Funktion sein, die zwei Zahlen addiert, gleich einer Dekleration:</p>
+<p><a href="snippets/math.mDm">math</a></p>
+<p>In diesem Beispiel sind <code>a</code> und <code>b</code> die Eingabeparameter für die Funktion. Der Funktionskörper führt die Addition durch (<code>a + b</code>), und das Ergebnis dieser Verarbeitung wird unter dem Funktionsnamen <code>addiere</code> abgelegt.
+Um eine solche Funktion aufzurufen und das Ergebnis zu nutzen, könnte der Code wie folgt aussehen, gleich einer implementierung:
+Hier werden <code>5</code> und <code>3</code> als Eingabeparameter an die Funktion <code>addiere</code> übergeben. Das Ergebnis der Addition wird in der Variablen <code>ergebnis</code> gespeichert.</p>
+<h4 id="importing">Importing</h4>
+<p>mDm streamlines external dependencies and modular programming with straightforward import syntax.
+The language simplifies external dependencies and modular programming through its import constructs, allowing for the inclusion of libraries and modules with a straightforward syntax. This approach to dependency management streamlines code organization and reuse.</p>
+<p>mDm defines clear rules for importing and exporting code elements to manage dependencies and ensure that only the necessary parts of a module or package are exposed to the rest of the program.</p>
+<ul>
+<li>
+<p><strong>Importing</strong>: When a module or package needs to use functions, classes, or other elements defined elsewhere, it can import them using mDm's import statement. The import mechanism specifies how and which components of a module or package can be accessed by others, promoting loose coupling and high cohesion within and across modules.</p>
+</li>
+<li>
+<p>To import a module or specific functionalities from a module, mDm uses syntax that might look similar to <code>(iostream; string), import, IO</code>, where <code>iostream</code> and <code>string</code> are the modules or functionalities being imported, and <code>IO</code> is an optional alias to refer to the imported entities.</p>
+</li>
+<li>
+<p><strong>Exporting</strong>: Modules and packages in mDm specify what functionalities they make available to other parts of the program or to other programs. Exporting is controlled through specific statements that declare which dSeq (direct sequence)s, functions, or classes can be used externally. This ensures that internal details of a module or package can remain hidden, exposing only a defined interface to the outside world.</p>
+</li>
+<li>
+<p>An export statement in mDm clearly marks which components are intended for external use, potentially using syntax. existing of dSeq (direct sequence)s in same memory region, they are inherent exported, cause of all dSeq (direct sequence)s are public in that memory. outside of own memory region, the dSeq (direct sequence)s arn't resolved.</p>
+</li>
+<li>
+<p><strong>mDm Example</strong>: <a href="snippets/importExample.mdm">Importing a module</a>.</p>
+</li>
+</ul>
+<h4 id="declaring-variables-types">Declaring (Variables / Types)</h4>
+<p>Variable and type declarations in mDm follow a structured syntax, enhancing clarity and modularity.
+Eine detaillierte Erläuterung des Typsystems von mDm, einschließlich der unterstützten Datentypen (wie Integer, Float, String, Listen, usw.), sowie Regeln für Typkonversion und Typinferenz.
+mDm's approach to programming language design is ambitious and innovative, drawing inspiration from structured programming principles and incorporating modern features like macros, groupings, and advanced data handling. Let's dive into the detailed syntax description and how type declarations for common data types are structured in mDm, reflecting on its distinctive paradigm that focuses on input, processing, and output (dSeq (direct sequence)s).</p>
+<ul>
+<li><strong>Type Annotations in dSeq (direct sequence)s</strong>: In defining dSeq (direct sequence)s, type annotations can be used to explicitly declare the types of inputs, processing steps, and outputs. This clarity supports mDm's goal of making each dSeq (direct sequence) self-contained and understandable.</li>
+<li><strong>Type Safety in Modular Design</strong>: The modular design of mDm, with its emphasis on modules, packages, and namespaces, would leverage type safety to ensure that interfaces between different parts of the program are correctly used and that data is appropriately shared or isolated.</li>
+<li><strong>Type Inference for Ease of Use</strong>: Type inference would be particularly useful in making mDm code concise and expressive, especially when writing complex operations or algorithms where the types can be clearly inferred from the context.</li>
+</ul>
+<p>The declaration of common data types in mDm emphasizes the language's structured and modular design. Here are examples of how various data types can be declared:</p>
+<p><a href="snippets/types.mDm">Type example</a></p>
+<p>Um auf Basis des dNib-Konzepts in mDm weitere Datentypen wie char, string, numerical, fraction, und list zu deklarieren, wobei jedem Wert ein dNib vorangestellt ist, kann man die Speicherstruktur und -interpretation entsprechend planen. Angesichts einer 32-Bit-Architektur, bei der nach Abzug des dNib 28 Bit für den eigentlichen Wert verbleiben, ergeben sich interessante Möglichkeiten für die Darstellung und Verwaltung dieser Typen. Hier ein Überblick über eine mögliche Implementierung dieser Datentypen unter Berücksichtigung des dNib:
+Char</p>
+<pre><code>Ein char könnte direkt in den verbleibenden 28 Bit gespeichert werden, wobei das dNib Informationen über den Typ (z.B. dass es sich um ein Zeichen handelt) und möglicherweise über die Codierung enthält. Bei Bedarf könnten Zeichen, die mehr als 28 Bit erfordern, über mehrere Speicherstellen verteilt werden, mit einem fortlaufenden dNib, das anzeigt, dass das Zeichen über die erste Speicherstelle hinausgeht.
+</code></pre>
+<h5 id="string">String</h5>
+<pre><code>Ein string würde aus einer Sequenz von char bestehen, wobei jedes Zeichen sein eigenes dNib besitzt. Das EndOfTyp-dNib am Ende des Strings signalisiert das Ende der Zeichenkette. Für längere Texte, die mehrere Speicherstellen benötigen, würden fortlaufende dNibs die Zugehörigkeit zum gleichen String anzeigen, bis ein dNib mit der Markierung EndOfType das Ende kennzeichnet.
+</code></pre>
+<h5 id="numerical">Numerical</h5>
+<pre><code>Numerische Typen (int, float etc.) würden ähnlich behandelt. Ein numerical könnte in 28 Bit oder über mehrere Speicherstellen für größere Genauigkeit oder Wertebereiche verteilt werden. Das dNib würde hierbei den Typ (z.B. Ganzzahl oder Fließkommazahl) und das Ende der Zahl (EndOfType) markieren.
+</code></pre>
+<h5 id="fraction">Fraction</h5>
+<pre><code>Eine fraction (Bruch) könnte als zwei numerical Werte dargestellt werden, einer für den Zähler und einer für den Nenner, jeweils mit eigenen dNibs. Ein drittes dNib könnte das Ende der fraction markieren und somit die beiden Teile als zusammengehörig definieren.
+</code></pre>
+<h5 id="list">List</h5>
+<pre><code>Eine list wäre eine Sequenz von Werten (z.B. char, numerical, andere lists), wobei jedes Element durch ein dNib gekennzeichnet ist. Das Ende einer Liste würde durch ein EndOfType-dNib gekennzeichnet. Für verschachtelte Listen würde jedes Listenelement sein eigenes dNib haben, das den Beginn einer neuen Liste markiert, gefolgt von den Elementen dieser Unternliste, bis ein EndOfType-dNib das Ende anzeigt.
+</code></pre>
+<h6 id="complex-types-struct-like">Complex Types (Struct-like)</h6>
+<p>mDm allows for the definition of complex data types, akin to structs in C or objects in other object-oriented languages. This can be done by defining a sequence of elements, each with its own type and identifier, grouped together:</p>
+<p>This syntax showcases mDm's unique approach to programming language design, focusing on clarity, modularity, and the seamless integration of structured programming principles. It's designed to encourage developers to think about the flow of data through their programs, making the development process more intuitive and aligned with computational theory.</p>
+<h5 id="defining-complex-data-types">Defining Complex Data Types</h5>
+<p>mDm supports the definition of complex data types through a sequence of elements, each characterized by its own IPO schema. This feature exemplifies the language's strong typing and modular design principles, enabling precise and clear data modeling.
+zusammen gesetzte datentypen, d.h. sie werden in mDm durch () gebildet, siehe Complex Types:</p>
+<pre><code class="language-mDm">((1,int,zaehler);(2,int, nenner)), fracture, afracture
+</code></pre>
+<pre><code class="language-mDm">((_,char,_);(2,int, length)), string, astring
+</code></pre>
+<p>gleiches gilt für: dSeq (direct sequence)s, list, ...</p>
+<p>In the conceptual framework of mDm, type safety and type inference are critical features designed to enhance the language's reliability, readability, and ease of use. These features align with mDm's overarching goals of structured programming, modularity, and clarity.</p>
+<h4 id="counting">Counting</h4>
+<p>Demonstrates handling numeric operations and counters in mDm.</p>
+<ul>
+<li><strong>mDm Example</strong>: Incrementing a counter.
+  <code>mDm
+  (counter; 1), add, counter</code></li>
+</ul>
+<h4 id="operating">Operating</h4>
+<p>Showcases basic arithmetic and logical operations within the structured syntax of mDm.
+mDm's capability to perform arithmetic operations is shown in this straightforward example, demonstrating the language's approach to basic mathematical tasks.</p>
+<p>By specifying the inputs, operation, and output, mDm maintains clarity and precision in expressing arithmetic, adhering to its structured programming model.</p>
+<h4 id="conditions">Conditions</h4>
+<p>Conditional statements in mDm allow for decision-making based on dynamic data.
+zur weiteren verarbeitung müssen bedingungen erfüllt sein. sind sie
+nicht erfüllt, sind sie für dSeq (direct sequence)s nicht wahr. mit dem '<em>' undefined
+macro können sie weiter verarbeitet werden, mit undefinierten
+verhalten. weitere verarbeitungsschritte sind notwendig, um '</em>' auf
+wahren inhalt zu prüfen und für die weitere verarbeitung entscheidbar
+zu machen.
+Implementing conditional logic in mDm, this example handles decision-making based on user input, showcasing the language's support for dynamic and conditional operations.</p>
+<p>Control structures, including conditional statements, are represented in mDm using a similar dSeq (direct sequence) syntax, which integrates seamlessly with the language's structured programming approach. Conditionals are defined by specifying the condition as part of the input, the evaluation as the process, and the consequent action as the output.</p>
+<p>This snippet illustrates a conditional check on <code>userInput</code> to determine if it is greater than or equal to 18, and prints "Adult" if the condition is true.</p>
+<p>The conditional operation <code>if &gt;=</code> demonstrates mDm's ability to execute different paths based on runtime conditions, a crucial feature for responsive programs.
+mDm handles loops, control structures, iteration, and recursion within its unique framework of dSeq (direct sequence)s and the IPO (Input, Processing, Output) model, adhering to its structured approach to programming. The language's design principles facilitate clear and concise representation of these constructs, emphasizing modularity and predictability. </p>
+<p><a href="snippets/conditions.mDm">Condition examples</a></p>
+<h5 id="iteration">Iteration</h5>
+<p>Iteration over collections like lists or arrays is handled through dSeq (direct sequence) constructs that allow for accessing and manipulating elements in a sequence. mDm's syntax for iteration is designed to work with its structured approach, enabling developers to specify the operation to be performed on each element of the collection.</p>
+<pre><code class="language-mDm">/// Variable
+0, int, counter
+(1;2;3;4;5), list, myList
+
+/// Iteration Construct
+(counter; size(myList)), while &lt;, (
+    (myList; counter), at, currentItem
+    /// Process currentItem here
+)
+</code></pre>
+<p>This example shows how iteration can be implemented to access each item in <code>myList</code> using a counter.</p>
+<h5 id="recursion">Recursion</h5>
+<p>Recursion in mDm is handled by allowing functions (dSeq (direct sequence)s) to call themselves within their processing phase. The structured nature of mDm requires that recursive calls be clearly defined within the IPO model, ensuring that each recursive step is treated as a discrete dSeq (direct sequence).</p>
+<pre><code class="language-mDm">/// Recursive Function Definition
+(n), factorial, result
+(n; 1), if &lt;=, (1, return, result)
+(n; (n;1), factorial, _), mul, result
+</code></pre>
+<p>In this recursive example, the <code>factorial</code> function calls itself with <code>n-1</code> until <code>n</code> is less than or equal to 1, demonstrating how recursion fits within the dSeq (direct sequence) paradigm.</p>
+<p>mDm's approach to loops, control structures, iteration, and recursion emphasizes its core philosophy of clear, structured, and modular programming. By integrating these constructs within the IPO model and dSeq (direct sequence)s framework, mDm offers a unique and powerful tool for software development, encouraging developers to think in terms of discrete processing steps and data flow.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>
