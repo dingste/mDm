@@ -1,0 +1,19 @@
+(_;_), eq, (bool)
+(bool; bool), and, (bool)
+(bool; bool), or, (bool)
+(bool), not, (bool)
+(address), is, (_)
+
+(uint6;uint6), add, (uint6)
+(uint6;uint6), sub, (sint5)
+(uint6;uint6), mul, (uint12)
+(uint6;uint6), div, (fraction6)
+  
+(float10; float10), pow, (float10) 
+(float10), sqrt, (float10) 
+(float10), log, (float10) 
+
+(list6<char6>), systemCall, ()
+(list6<char6>; list6<char6>), callExternalFunction, ()
+
+(list6<char6>), print, ()

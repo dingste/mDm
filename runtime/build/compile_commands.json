@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/dieter/own/mDm/runtime/build",
+  "command": "/usr/bin/clang++ -I/usr/include/libpng16 -I/usr/include/webp -I/home/dieter/own/mDm/runtime/src -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/mDmRuntime.dir/src/Interpreter.cpp.o -c /home/dieter/own/mDm/runtime/src/Interpreter.cpp",
+  "file": "/home/dieter/own/mDm/runtime/src/Interpreter.cpp",
+  "output": "CMakeFiles/mDmRuntime.dir/src/Interpreter.cpp.o"
+},
+{
+  "directory": "/home/dieter/own/mDm/runtime/build",
+  "command": "/usr/bin/clang++ -I/usr/include/libpng16 -I/usr/include/webp -I/home/dieter/own/mDm/runtime/src -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/mDmRuntime.dir/src/Parser.cpp.o -c /home/dieter/own/mDm/runtime/src/Parser.cpp",
+  "file": "/home/dieter/own/mDm/runtime/src/Parser.cpp",
+  "output": "CMakeFiles/mDmRuntime.dir/src/Parser.cpp.o"
+},
+{
+  "directory": "/home/dieter/own/mDm/runtime/build",
+  "command": "/usr/bin/clang++ -I/usr/include/libpng16 -I/usr/include/webp -I/home/dieter/own/mDm/runtime/src -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/mDmRuntime.dir/src/main.cpp.o -c /home/dieter/own/mDm/runtime/src/main.cpp",
+  "file": "/home/dieter/own/mDm/runtime/src/main.cpp",
+  "output": "CMakeFiles/mDmRuntime.dir/src/main.cpp.o"
+}
+]

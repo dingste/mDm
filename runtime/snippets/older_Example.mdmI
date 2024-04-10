@@ -1,6 +1,22 @@
-/// Variable
+/// Import Standard Library Modules
+(iostream), import, IO
+
+/// Define a Simple Add Function
+(a; b), add, result
+    /// Use clear, concise naming and structure for the function
+
+/// Main Program Flow
+_, (
+    5, int, num1
+    10, int, num2
+    (num1; num2), add, sum
+    sum, print, IO:::cout  /// Explicit output operation
+), main
+    /// Include meaningful comments to explain the logic
+
+    /// Variable
 0, int, counter
-(2;4;6;10;1;456), list, listofitems
+
 _, int, output
 
 /// Loop Construct till counter < 10
@@ -18,15 +34,6 @@ _, ( (counter; spezifischerWert), while <, (
 ) ), output
 
 /// Loop Initialization
-0, int, counter
-
-/// Loop Construct
-(counter; 10), while <, (
-    /// Loop Body: Increment counter
-    (counter; 1), add, counter
-)
-
-/// Counter Variable
 0, int, counter
 
 /// Loop Construct

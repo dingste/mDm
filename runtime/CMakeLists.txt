@@ -7,6 +7,11 @@ project(mDmRuntime CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+find_package(SDL2 REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_search_module(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
+
 # Hinzufügen des Verzeichnisses, das die .cpp und .h Dateien enthält
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
@@ -17,5 +22,5 @@ file(GLOB SOURCES "src/*.cpp")
 # Erstellen eines ausführbaren Programms mit dem Namen 'mDmRuntime'
 add_executable(mDmRuntime ${SOURCES})
 
-# Hier können Sie Bibliotheken verlinken, falls Ihr Projekt welche benötigt.
-# Beispiel: target_link_libraries(mDmRuntime someLibrary)
+# Verlinke die SDL2 Bibliothek mit dem ausführbaren Ziel
+target_link_libraries(mDmRuntime ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})
