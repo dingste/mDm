@@ -31,6 +31,10 @@ jobs:
     steps:
       - name: MkDocs Action
         uses: Tiryoh/actions-mkdocs@v0.23.0
+        with:
+          mkdocs_version: latest
+          requirements: ./requirements.txt
+          configfile: ./mkdocs.yml
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
