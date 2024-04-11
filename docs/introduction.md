@@ -1,7 +1,0 @@
-Programming languages are foundational to software development, translating human logic into commands that machines can execute. mDm is introduced as a language based on the structured paradigm of input, processing, and output (IPO) modules, similar to the computation by classic von Neumann architecture. This three-part structure is termed dSeq (direct sequence). The architecture promotes a clear separation of concerns, modular design, and improved readability, thereby setting the stage for efficient and error-reduced coding practices.
-While no existing programming language perfectly aligns with the unique combination of features and paradigms mDm proposes, many languages do include elements that align with its fundamental principles. The design of mDm represents a synthesis of structured programming, type safety, modularity, and a distinct IPO model, drawing inspiration from both functional and system programming languages to meet contemporary software development challenges. Specifically, its modularity allows for a more explicit approach to addressing every problem expressed.
-
-Document under:
-                                 Apache License
-                           Version 2.0, January 2004
-                        http://www.apache.org/licenses/

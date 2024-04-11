@@ -1,9 +1,0 @@
-/// Implementation beschreibt das wie und die umsetzung
-
-/// Loop Construct
-(counter; 10), while <, (
-    /// Loop Body: Increment counter
-    (counter; 1), add, counter
-)
-
-(5; 3), addiere, ergebnis
