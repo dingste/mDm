@@ -1,0 +1,6 @@
+Emphasizing explicit definitions over implicit assumptions, this principle in mDm aims to eliminate uncertainties in data type interpretation and usage. mDm's approach to programming language design is ambitious and innovative, incorporating structured programming principles with modern features like macros, groupings, and advanced data handling. Let's explore the detailed syntax description and how type declarations for common data types are structured in mDm, highlighting its unique paradigm focused on input, processing, and output (dSeqs).
+
+    Type Annotations in dSeqs: When defining dSeqs, type annotations can explicitly declare the types of inputs, processing steps, and outputs. This clarity supports mDm's objective of making each dSeq self-contained and understandable.
+    Type Safety in Modular Design: mDm's modular design, emphasizing modules, packages, and namespaces, leverages type safety to ensure correct usage of interfaces between different parts of the program and appropriate sharing or isolation of data.
+    Type Inference for Ease of Use: Type inference in mDm could be particularly beneficial for writing concise and expressive code, especially when complex operations or algorithms allow for clear type inference from the context.
+    
