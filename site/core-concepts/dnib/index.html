@@ -843,10 +843,115 @@ In mDm, even fundamental data types like integers (int), floating-point numbers 
 <p>By rejecting implicit content assumptions, mDm promotes type safety, making each operation on the data intentional and explicit. This strictness necessitates clear type definitions and operations, minimizing the risk of type errors and reducing the complexity associated with casting between types.</p>
 <p>Ensuring Type Safety
 Ensuring type safety is a cornerstone of mDm's design. Each operation that retrieves or manipulates memory content must include validation against the expected type, as encoded by the preceding dNibs. This additional layer of verification acts as a safeguard against mismatches between the intended and actual use of data.</p>
-<pre><code class="language-mDm">/// Validate memory content as an integer before proceeding
-(0x01, _, memoryLocation), validateInt, safeIntOperation
-</code></pre>
 <p>The inclusion of dNibs in mDm establishes a methodical and secure framework for managing memory, effectively addressing one of the most prevalent sources of programmatic errors in software development. By mandating explicit definitions and operations, mDm leverages structured programming principles to enforce clarity, predictability, and reliability in code execution.</p>
+<p>Speicher</p>
+<p>|-------------------|
+| Byte 0 (Nibble 0) |
+|-------------------|
+| Byte 1 (Nibble 1) |
+|-------------------|
+| ...               |
+|-------------------|
+| Byte n-1 (Nibble 2n-2) |
+|-------------------|
+| Byte n (Nibble 2n-1) |
+|-------------------|</p>
+<p><strong>Legende:</strong></p>
+<ul>
+<li>Speicher: Der Speicherbereich, in dem Daten gespeichert werden.</li>
+<li>Byte: Eine Einheit von 8 Bits.</li>
+<li>Nibble: Eine Einheit von 4 Bits.</li>
+<li>dNib: Eine spezielle Struktur, bei der ein Byte in zwei Nibbles mit jeweils 4 Bits unterteilt wird.</li>
+</ul>
+<p><strong>Speicherorganisation:</strong></p>
+<ul>
+<li>Daten werden in Bytes gespeichert.</li>
+<li>Jedes Byte besteht aus zwei Nibbles.</li>
+<li>Die Nibbles werden in der Reihenfolge 0, 1, 2, ... n-1, 2n-2, 2n-1 gespeichert.</li>
+</ul>
+<p><strong>Beispiel:</strong></p>
+<ul>
+<li>Angenommen, wir haben den Wert 0xABCDEF in einem Byte gespeichert.</li>
+<li>Die Nibble-Darstellung wäre 0xA, 0xB, 0xC, 0xD, 0xE, 0xF.</li>
+<li>Nibble 0 (0xA) und Nibble 3 (0xE) bilden das erste Byte.</li>
+<li>Nibble 1 (0xB) und Nibble 4 (0xF) bilden das zweite Byte.</li>
+<li>Nibble 2 (0xC) und Nibble 5 (0xD) bilden das dritte Byte.</li>
+</ul>
+<p><strong>Vorteile der dNib-Struktur:</strong></p>
+<ul>
+<li>Geringerer Speicherbedarf im Vergleich zu 8-Bit-Bytes.</li>
+<li>Effizientere Nutzung des Speichers, insbesondere bei kleinen Datenmengen.</li>
+</ul>
+<p><strong>Einschränkungen:</strong></p>
+<ul>
+<li>Die dNib-Struktur ist möglicherweise nicht für alle Plattformen und Implementierungen von mDm verfügbar.</li>
+<li>Die genaue Speicherorganisation kann je nach Plattform und Implementierung variieren.</li>
+</ul>
+<p><strong>Zusammenfassend lässt sich sagen, dass die dNib-Struktur eine einzigartige Speicherorganisation in mDm ist, die Vorteile in Bezug auf den Speicherbedarf bietet, aber auch einige Herausforderungen mit sich bringt.</strong></p>
+<p>Bei einer 8-Bit Architekturbreite und unter Verwendung von 2 Bits (als dNibs bezeichnet) für spezielle Zwecke, bleibt folgende Aufteilung:</p>
+<pre><code>Bit 0 bestimmt, ob es sich um eine Adresse (0) oder um ein Datum (1) handelt.
+Bit 1 markiert das Ende einer Adresse oder eines Datums (1 signalisiert das Ende).
+</code></pre>
+<p>In einem einzelnen 8-Bit Byte, nach Abzug der 2 dNibs, verbleiben 6 Bits für die eigentliche Information (Adresse oder Datum).</p>
+<p>Wenn man jedoch zwei solcher Bytes kombiniert und jeweils 2 dNibs für die Markierungen nutzt, ergibt sich eine Struktur mit 4 Bits für die dNibs und 12 Bits für die Adresse oder das Datum.
+ASCII-Diagramm für Einzelbyte-Struktur:</p>
+<p>Es ist wichtig zu verstehen, dass das erste dNib grundsätzlich zwischen generellen Daten und Adressen unterscheidet, was die Flexibilität in der Datenhandhabung erhöht, aber auch die verfügbare Bitbreite für den eigentlichen Wert beeinflusst. Unter Berücksichtigung dieser Präzisierung und der Tatsache, dass ein weiteres Bit für das Vorzeichen reserviert wird, können wir die Deklarationen für Basisdatentypen entsprechend anpassen:
+Vorzeichenbehaftete Ganzzahl (signed integer)</p>
+<p>Für eine 5-Bit breite, vorzeichenbehaftete Ganzzahl (sint5), die nach Abzug der dNibs und des Vorzeichenbits 5 Datenbits übrig lässt:</p>
+<p>mDm</p>
+<p>(1; 1; signbit; bit; bit; bit; bit; bit), sint5, (_)</p>
+<p>Hierbei könnte signbit folgendermaßen definiert werden:</p>
+<p>mDm</p>
+<p>('+'; '-'), signbit, (0; 1)</p>
+<p>Das bedeutet, dass signbit entweder 0 (für positive Werte) oder 1 (für negative Werte) sein kann, was eine elegante Möglichkeit bietet, Vorzeicheninformationen direkt im Datentyp zu codieren.
+Weitere Anpassungen und Definitionen</p>
+<p>Basierend auf dem gleichen Prinzip können andere Datentypen ebenfalls präzisiert werden, wobei jeweils die notwendigen Bits für spezifische Typinformationen oder Eigenschaften (wie Vorzeichen) reserviert werden. Hier einige Beispiele, die auf der korrigierten Logik basieren:
+Vorzeichenlose Ganzzahl (unsigned integer)</p>
+<p>Für eine 6-Bit breite, vorzeichenlose Ganzzahl (uint6), die nach Abzug der dNibs 6 Datenbits übrig lässt:</p>
+<p>mDm</p>
+<p>(1; 1; bit; bit; bit; bit; bit; bit), uint6, (_)</p>
+<p>Gleitkommazahl (floating point)</p>
+<p>Für eine vereinfachte Gleitkommadarstellung, hier beispielhaft als 10-Bit breite Zahl (float10) nach Abzug der dNibs und eines Bit für das Vorzeichen:</p>
+<p>mDm</p>
+<p>(1; 0; signbit; bit; bit; bit; bit; bit; 1; 1; bit; bit; bit; bit; bit; bit), float10, (_)</p>
+<p>Boolescher Wert (boolean)</p>
+<p>Für einen booleschen Wert, der nur ein Bit benötigt, plus die dNibs:</p>
+<p>mDm</p>
+<p>(1; 1; bit), bool, (_)</p>
+<p>Zeichen (character)</p>
+<p>Für ein ASCII-Zeichen (char), das nach Abzug der dNibs 6 Bits für den eigentlichen Wert übrig lässt:</p>
+<p>mDm</p>
+<p>(1; 1; bit; bit; bit; bit; bit; bit), char, (_)</p>
+<p>Diese Definitionen zeigen, wie durch das Festlegen von dNibs und der Berücksichtigung der Bitbreite für spezielle Zwecke (wie Vorzeichen) in mDm Typen definiert werden können, die sowohl ausdrucksstark als auch flexibel im Umgang mit Daten sind.</p>
+<p>diff</p>
+<p>+---+---+---------+
+| d | e | Daten   |
++---+---+---------+
+| 1 Bit | 6 Bits |</p>
+<pre><code>d: Daten (1) oder Adresse (0)
+e: Ende Markierung (Ende der Adresse/Datum)
+</code></pre>
+<p>ASCII-Diagramm für Zusammengesetzte Struktur (2 Bytes):</p>
+<p>diff</p>
+<p>+---+---+---------------------+
+| d | e |      Daten          |
++---+---+---------------------+
+| 1 Bit |    12 Bits          |</p>
+<pre><code>d und e: dNibs über zwei Bytes hinweg verteilt
+Daten: Kombinierte Daten/Adresse mit 12 Bits
+</code></pre>
+<p>Beispiele</p>
+<p>6-Bit Adresse in einem Einzelbyte:</p>
+<p>Angenommen, wir haben eine Adresse, die wir markieren wollen. Die ersten 2 Bits wären 00, um eine Adresse zu markieren, die nicht das Ende signalisiert. Die verbleibenden 6 Bits könnten die eigentliche Adresse darstellen.</p>
+<p>css</p>
+<p>0  0  A  A  A  A  A  A</p>
+<p>18-Bit Positiver Integer über 2 Bytes:</p>
+<p>Um einen 18-Bit positiven Integer zu repräsentieren, würden wir drei 8-Bit Bytes benötigen, wobei die ersten 4 Bits in jedem Byte für dNibs reserviert sind und die verbleibenden 12 Bits für den Integer verwendet werden.</p>
+<p>mathematica</p>
+<p>Byte 1: 1  1  D  D  D  D  D  D  (Die ersten beiden Bits markieren ein Datum und dessen Ende)
+Byte 2: X  X  D  D  D  D  D  D  (X X: Weitere dNibs für zusätzliche Informationen oder Erweiterungen)
+Byte 3: X  X  D  D  D  D  D  D</p>
+<p>In diesem Schema wird klar, dass die Verwendung von dNibs zur Kodierung von Zusatzinformationen eine flexible und effiziente Handhabung des Speichers ermöglicht, wobei die präzise Unterscheidung zwischen Adressen und Daten sowie deren Enden berücksichtigt wird. Die Anordnung und Interpretation dieser Bits sind entscheidend für die einzigartige Speicherverwaltung in mDm.</p>
 
 
 
@@ -869,7 +974,7 @@ Ensuring type safety is a cornerstone of mDm's design. Each operation that retri
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 31, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2024</span>
   </span>
 
     

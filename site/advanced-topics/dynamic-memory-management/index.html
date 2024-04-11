@@ -75,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#adaptives-speichermanagement" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -453,6 +458,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Dynamic Memory Management
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -462,6 +478,50 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#adaptives-speichermanagement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adaptives Speichermanagement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementierungshinweise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementierungshinweise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vorteile-dieses-ansatzes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vorteile dieses Ansatzes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -807,6 +867,41 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#adaptives-speichermanagement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adaptives Speichermanagement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementierungshinweise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementierungshinweise
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vorteile-dieses-ansatzes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vorteile dieses Ansatzes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -826,6 +921,33 @@
   <h1>Dynamic Memory Management</h1>
 
 <p>By allowing data to be stored either directly or through address references (indirectly), the system can dynamically decide how and where to allocate memory. For small data values that fit directly next to the dNib, memory space can be conserved since no additional references are required. Larger data structures or those that can grow dynamically, such as lists or strings, utilize indirect referencing, allowing memory allocation to be tailored to needs and in variable sizes.</p>
+<p>In einem adaptiven Runtime-System, das auf der rekursiven Natur von dSeqs und den präzise definierten Typen aus <code>type6.mdmD</code> basiert, ergibt sich die Speicherverwaltung organisch aus der Struktur der Programme selbst. Jeder Typ und jede dSeq bringt seine eigene Spezifikation bezüglich des benötigten Speicherplatzes mit, was es der Runtime ermöglicht, den Speicher dynamisch anzupassen, je nachdem, welche Typen und dSeqs zur Laufzeit verwendet werden.</p>
+<h3 id="adaptives-speichermanagement">Adaptives Speichermanagement</h3>
+<p>Die Runtime-Umgebung nutzt die Information über die Bitgröße jedes Typs, um den notwendigen Speicher für Variablen, Zwischenergebnisse und andere Datenstrukturen zuzuweisen und freizugeben. Die Speicherverwaltung erfolgt dabei dynamisch und effizient:</p>
+<ol>
+<li>
+<p><strong>Speicherzuweisung bei der Initialisierung:</strong> Beim Start eines dSeq oder der Erstellung einer Variable berechnet die Runtime den erforderlichen Speicherplatz basierend auf den definierten Typen und weist diesen zu.</p>
+</li>
+<li>
+<p><strong>Dynamische Speicheranpassung:</strong> Wenn ein dSeq weitere dSeqs rekursiv aufruft oder komplexe Datenstrukturen manipuliert, passt die Runtime den Speicherbedarf entsprechend an. Dies umfasst sowohl die Erweiterung des Speichers für neue Daten als auch die Freigabe von Speicher, der nicht mehr benötigt wird.</p>
+</li>
+<li>
+<p><strong>Effiziente Speichernutzung:</strong> Die genaue Definition von Datentypen und deren Größe ermöglicht eine optimierte Speichernutzung, indem genau der Speicher reserviert wird, der benötigt wird, ohne Überbelegung.</p>
+</li>
+</ol>
+<h3 id="implementierungshinweise">Implementierungshinweise</h3>
+<ul>
+<li><strong>Typbasierte Speicherallokation:</strong> Die Runtime muss in der Lage sein, die Speichergröße für jeden Typ und jede Datenstruktur, die in <code>type6.mdmD</code> definiert ist, genau zu berechnen und entsprechend Speicher zuzuweisen.</li>
+<li><strong>Garbage Collection:</strong> Um effizient mit dem Speicher umzugehen, könnte die Runtime eine Form der Garbage Collection oder Speicherbereinigung implementieren, die nicht mehr benötigte Daten automatisch freigibt, insbesondere bei rekursiven dSeq-Aufrufen.</li>
+<li><strong>Debugging und Speicherüberwachung:</strong> Tools und Mechanismen für das Debugging und die Überwachung der Speichernutzung sind wichtig, um Speicherlecks zu vermeiden und die Performance von mDm-Programmen zu optimieren.</li>
+</ul>
+<h3 id="vorteile-dieses-ansatzes">Vorteile dieses Ansatzes</h3>
+<ul>
+<li><strong>Skalierbarkeit:</strong> Die Speicherverwaltung skaliert dynamisch mit den Anforderungen des Programms, ohne dass manuelle Speicherallokation oder -freigabe erforderlich ist.</li>
+<li><strong>Performance:</strong> Durch die präzise Allokation nur des benötigten Speichers und die effiziente Wiederverwendung kann die Runtime optimale Performance gewährleisten.</li>
+<li><strong>Sicherheit und Stabilität:</strong> Ein gut gestaltetes Speichermanagementsystem reduziert die Wahrscheinlichkeit von Speicherüberläufen und anderen speicherbezogenen Fehlern.</li>
+</ul>
+<p>Diese Überlegungen zur Speicherverwaltung in einer mDm-Runtime reflektieren die einzigartige Kombination aus Flexibilität und Effizienz, die durch die rekursive Struktur von dSeqs und die präzise Definition von Datentypen ermöglicht wird. Durch die enge Integration von Typsystem, Speichermanagement und Programmausführung kann die Runtime eine robuste Plattform für die Entwicklung und Ausführung von mDm-Programmen bieten.</p>
 
 
 
@@ -848,7 +970,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 31, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2024</span>
   </span>
 
     

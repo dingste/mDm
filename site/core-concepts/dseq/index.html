@@ -75,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#vereinfachte-verarbeitung-von-dseqs" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -327,6 +332,17 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    dSeq
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -336,6 +352,50 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vereinfachte-verarbeitung-von-dseqs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vereinfachte Verarbeitung von dSeqs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vorteile-dieser-struktur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vorteile dieser Struktur:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementierungshinweise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementierungshinweise:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -807,6 +867,41 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vereinfachte-verarbeitung-von-dseqs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vereinfachte Verarbeitung von dSeqs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vorteile-dieser-struktur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vorteile dieser Struktur:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementierungshinweise" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementierungshinweise:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -841,11 +936,66 @@ implementation: (eingangsvariabeln),(process logik), funktionsname</p>
 <p>verschachtelung in der form:
 ((dState, dState, dState), dState, dState)
 oder:
-((dSeq, dState, dState), dSeq, dState)
-sind möglich und erweitern die funktionalität der sprache. Der OUTPUT dState der einen dSeq kann an anderer Stelle oder in einem anderem Programmteil mit benutzt werden.</p>
-<p>Defining a sequence with input, process, and output.
-  <code>mDm
-  (inputData), performCalculation, outputData</code></p>
+((dSeq, dState, dState), dSeq, dState)</p>
+<p>sind möglich und erweitern die funktionalität der sprache. Der OUTPUT dState der einen dSeq kann an anderer Stelle oder in einem anderem Programmteil mit benutzt werden.</p>
+<p>Defining a sequence with input, process, and output.</p>
+<p>Die Verwendung von Dateierweiterungen, um Deklarationen und Implementationen in mDm zu unterscheiden, ist eine praktische und elegante Lösung, die mehrere Vorteile bietet:
+Vorteile der Verwendung von Dateierweiterungen:</p>
+<pre><code>Klare Trennung von Schnittstellen und Implementierungen: Durch die Unterscheidung von .mdmD für Deklarationen (Schnittstellen) und .mdmI für Implementierungen ermöglicht dieser Ansatz eine sofort erkennbare Trennung zwischen der Definition dessen, was ein Modul oder eine Funktion leisten soll, und dem Code, der diese Leistung erbringt.
+
+Vereinfachte Verwaltung von Abhängigkeiten: Wenn Importe sich auf den Dateinamen beziehen, können Entwickler und Tools leicht erkennen, welche Abhängigkeiten rein auf Schnittstellen basieren (und damit potenziell austauschbar sind) und welche spezifische Implementierungen erfordern.
+
+Unterstützung für unterschiedliche Implementierungen: Dieser Ansatz ermöglicht es, verschiedene Implementierungen derselben Schnittstelle (Deklaration) bereitzustellen, indem man einfach unterschiedliche .mdmI-Dateien verwendet. Dies kann insbesondere nützlich sein, um plattformspezifische Implementierungen oder Optimierungen zu handhaben.
+
+Verbesserung der Tool-Unterstützung: Entwicklungsumgebungen und Build-Tools können auf Basis der Dateierweiterung spezifische Funktionen anbieten, wie das automatische Generieren von Skeletten für Implementierungen basierend auf Deklarationen oder das Überprüfen der Übereinstimmung zwischen Deklaration und Implementierung.
+</code></pre>
+<p>Praktische Umsetzung:</p>
+<pre><code>Deklarationsdateien (.mdmD): Enthalten die Definitionen der Schnittstellen, Funktionssignaturen oder Prototypen. Diese Dateien beschreiben, welche Operationen verfügbar sind, welche Parameter sie erwarten und welche Ergebnisse sie liefern.
+
+Implementierungsdateien (.mdmI): Enthalten den tatsächlichen Code, der die in den .mdmD-Dateien spezifizierten Schnittstellen erfüllt. Diese Dateien enthalten die Logik, Algorithmen und Datenstrukturen, die erforderlich sind, um die definierten Operationen durchzuführen.
+</code></pre>
+<p>Beispiel für Importe:</p>
+<p>Angenommen, wir haben eine Funktion addiere, definiert in math.mdmD und implementiert in math.mdmI.</p>
+<pre><code>math.mdmD könnte folgendermaßen aussehen:
+
+php
+</code></pre>
+<p>declare (int, int), addiere, (int)</p>
+<p>math.mdmI könnte die Implementierung enthalten:</p>
+<p>css</p>
+<p>implement (a, b), (a + b), addiere</p>
+<p>Ein Import in einem anderen Modul könnte spezifisch auf eine der beiden Dateien verweisen, abhängig davon, ob nur die Schnittstelle benötigt wird oder auf die Implementierung zugegriffen werden soll:</p>
+<p>arduino</p>
+<pre><code>import "math.mdmD" // Importiert nur die Deklaration
+</code></pre>
+<p>Diese Methodik fördert Modularität und Abstraktion, indem sie klar definierte Schnittstellen von ihren Implementierungen trennt. Es unterstützt auch das Prinzip der minimalen Kenntnis, indem es ermöglicht, Abhängigkeiten auf das zu beschränken, was wirklich benötigt wird.</p>
+<p>Wenn mDm-Programme grundsätzlich als dSeqs strukturiert sind und somit einen quasi root-dSeq haben, aus dem heraus weitere dSeqs rekursiv eingebettet werden, vereinfacht dies das Konzept der Datenverarbeitung und -zuweisung erheblich. Dieser Ansatz ermöglicht es, die Struktur und Ausführung von Programmen intuitiv und direkt abzubilden, ohne die Notwendigkeit einer expliziten ID-Zuweisung für einzelne dSeqs. Stattdessen kann die hierarchische und rekursive Natur der dSeqs selbst genutzt werden, um den Kontext und die Ausführungsreihenfolge zu bestimmen.</p>
+<h3 id="vereinfachte-verarbeitung-von-dseqs">Vereinfachte Verarbeitung von dSeqs</h3>
+<p>Angesichts dieser Struktur können wir das Konzept der dSeq-Verarbeitung wie folgt anpassen:</p>
+<ol>
+<li><strong>Ausführung von dSeqs:</strong></li>
+</ol>
+<p>Die Ausführung beginnt mit dem root-dSeq, der das gesamte Programm darstellt. Jeder dSeq verarbeitet seine Eingabedaten (falls vorhanden), führt die definierten Operationen oder Unter-dSeqs aus und produziert Ausgabedaten. Die Ausführung von Unter-dSeqs erfolgt rekursiv innerhalb dieses Rahmens.</p>
+<p><code>mDm
+   (inputData), executeDSeq, (outputData)</code></p>
+<ol>
+<li><strong>Rekursive Einbettung und Ausführung:</strong></li>
+</ol>
+<p>Innerhalb eines dSeq können weitere dSeqs als Teil der Verarbeitungslogik eingebettet werden. Die Ausführung dieser eingebetteten dSeqs folgt dem gleichen Prinzip: Eingabedaten werden übergeben, die Verarbeitung wird durchgeführt, und Ausgabedaten werden generiert.</p>
+<p>Die Einbettung und rekursive Ausführung ermöglichen eine natürliche Hierarchie und Modularität innerhalb des Programms, wobei die Datenflüsse zwischen den dSeqs klar definiert sind.</p>
+<h3 id="vorteile-dieser-struktur">Vorteile dieser Struktur:</h3>
+<ul>
+<li><strong>Klarheit und Einfachheit:</strong> Die Struktur eines mDm-Programms als eine Hierarchie von dSeqs vereinfacht das Verständnis der Programmlogik und Datenflüsse.</li>
+<li><strong>Wiederverwendbarkeit:</strong> dSeqs können als modulare Blöcke konzipiert werden, die innerhalb verschiedener Teile eines Programms oder sogar in anderen Programmen wiederverwendbar sind.</li>
+<li><strong>Flexibilität in der Datenverarbeitung:</strong> Durch die rekursive Einbettung von dSeqs innerhalb anderer dSeqs kann eine flexible und leistungsstarke Datenverarbeitungslogik implementiert werden, die komplexe Aufgabenstellungen unterstützt.</li>
+</ul>
+<h3 id="implementierungshinweise">Implementierungshinweise:</h3>
+<ul>
+<li><strong>Datenfluss und Zustandsmanagement:</strong> Es muss ein effizientes System zur Verwaltung des Datenflusses zwischen den dSeqs sowie zur Speicherung von Zwischenergebnissen und Zuständen innerhalb der dSeq-Hierarchie entwickelt werden.</li>
+<li><strong>Typsicherheit und -überprüfung:</strong> Obwohl die Struktur vereinfacht ist, bleibt die Notwendigkeit der Typsicherheit und der Überprüfung von Typkonformität bei der Datenübergabe zwischen dSeqs bestehen.</li>
+<li><strong>Fehlerbehandlung und Debugging:</strong> Die Fähigkeit zur effektiven Fehlerbehandlung und zum Debugging innerhalb dieser rekursiven Struktur ist entscheidend für die Entwicklung robuster mDm-Anwendungen.</li>
+</ul>
+<p>Dieser Ansatz betont die zentrale Rolle von dSeqs in mDm und nutzt deren strukturelle Eigenschaften, um ein intuitives und leistungsstarkes Modell für die Programmausführung zu schaffen.</p>
 
 
 
@@ -868,7 +1018,7 @@ sind möglich und erweitern die funktionalität der sprache. Der OUTPUT dState d
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 31, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 10, 2024</span>
   </span>
 
     
