@@ -267,3 +267,25 @@ note left of Address : Adressindikator zeigt auf\ndie Daten.
 note right of Data : Dateninhalt neben\ndem dNib.
 @enduml
 
+@startuml "dNibs"
+class "Memory" {
+  -dNib: 2 Bits
+  -Data: Byte
+}
+
+note "Memory"
+  The dNib controls:
+  - Data or Address (1 bit)
+  - End marker (1 bit)
+end note
+
+"Memory" -> "Memory" : Self Reference for Sequential Access
+
+note "Memory Layout" 
+  Each byte of memory is divided into:
+  - 2 bits for dNib
+  - Remaining bits for data
+end note
+
+"Memory" -down-> "Memory Layout"
+@enduml

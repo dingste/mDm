@@ -23,16 +23,16 @@ plugins:
   - git-revision-date-localized:
       enable_creation_date: true
   - search
-#  - build_plantuml:
-#      render: 'local'
-#      bin_path: '/usr/bin/plantuml' 
-#      disable_ssl_certificate_validation: true 
-#      output_format: 'svg' # or "png"
-#      allow_multiple_roots: false 
-#      diagram_root: 'docs/diagrams'
-#      output_folder: 'out'
-#      input_folder: 'src'
-#      input_extensions: ''
+  - build_plantuml:
+      render: 'local'
+      bin_path: '/usr/bin/plantuml' 
+      disable_ssl_certificate_validation: true 
+      output_format: 'svg' # or "png"
+      allow_multiple_roots: false 
+      diagram_root: 'docs/diagrams'
+      output_folder: 'docs/diagrams/out'
+      input_folder: 'docs/diagrams/src'
+      input_extensions: ''
   - extra-sass
   - with-pdf:
       author: Dieter Steuten
@@ -47,7 +47,7 @@ plugins:
       verbose: false
 
 nav:
-  - Introduction: introduction.md
+  - Home: index.md
   - Abstract: abstract.md
   - Core Concepts:
       - IPO Model: core-concepts/ipo-model.md
@@ -57,7 +57,6 @@ nav:
       - Implicit is Wack!: advanced-topics/implicit-is-wack.md
   - Advanced Topics:
       - Memory Management: advanced-topics/memory-management.md
-      - Dynamic Memory Management: advanced-topics/dynamic-memory-management.md
       - Support for Complex Data Structures: advanced-topics/support-for-complex-data-structures.md
       - Type & Error System: advanced-topics/type-error-system.md
       - Unsort: advanced-topics/unsort.md

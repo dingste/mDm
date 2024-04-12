@@ -1,34 +1,9 @@
 In mDm, **dNibs** are fundamental in defining how data is interpreted at any given memory location. A dNib consists of two bits that encode metadata about the data stored in the remaining bits of a memory unit. These two bits determine whether the content at the memory location is a specific type of data or an address, and whether it represents the end of the data or an address.
 
-**PlantUML Diagram for dNib Memory Representation**
-
 Since a visual representation can help in understanding the concept of dNibs, here is a PlantUML diagram illustrating how dNibs are used to interpret memory content:
 
 ```plantuml
-@startuml
-skinparam monochrome true
 
-class Memory {
-  -dNib: Byte
-  -Data: Byte
-}
-
-note right of Memory
-  The 'dNib' controls:
-  - Data or Address (1 bit)
-  - End marker (1 bit)
-end note
-
-Memory -> Memory : Self Reference for Sequential Access
-
-note "Memory Layout" as N1
-  Each byte of memory is divided into:
-  - 2 bits for dNib
-  - Remaining bits for data
-end note
-
-Memory -down-> N1
-@enduml
 ```
 
 **Type Safety and Declaration**
