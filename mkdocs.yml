@@ -54,21 +54,12 @@ nav:
       - dSeq: core-concepts/dseq.md
       - dState: core-concepts/dstate.md
       - dNib: core-concepts/dnib.md
+      - Implicit is Wack!: advanced-topics/implicit-is-wack.md
   - Advanced Topics:
       - Memory Management: advanced-topics/memory-management.md
       - Dynamic Memory Management: advanced-topics/dynamic-memory-management.md
-      - Efficient Memory Usage: advanced-topics/efficient-memory-usage.md
-      - Simplification of Memory Release: advanced-topics/simplification-of-memory-release.md
       - Support for Complex Data Structures: advanced-topics/support-for-complex-data-structures.md
-      - Optimization for Specific Use Cases: advanced-topics/optimization-for-specific-use-cases.md
-      - Improvement of Memory Access Times: advanced-topics/improvement-of-memory-access-times.md
-      - Implicit is Wack!: advanced-topics/implicit-is-wack.md
-      - Explicitly Defining a Variable Type: advanced-topics/explicitly-defining-a-variable-type.md
-      - Type System: advanced-topics/type-system.md
-      - Error Handling: advanced-topics/error-handling.md
+      - Type & Error System: advanced-topics/type-error-system.md
       - Unsort: advanced-topics/unsort.md
-  - Practical Examples:
-      - Implementing a Loop: practical-examples/implementing-a-loop.md
-      - Error Handling in mDm: practical-examples/error-handling.md
   - Conclusion: conclusion.md
 

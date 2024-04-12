@@ -1,66 +1,58 @@
-dState refers to each phase within a dSeq, detailing the specific actions in the input, processing, or output stages.
+In mDm, a **dState** refers to each phase within a dSeq, detailing the specific actions that occur during the input, processing, or output stages of the sequence. These states represent the three core steps—input, processing, and output—that together form the fundamental construct for structured program flow in mDm, reflecting the classic Input-Process-Output (IPO) model.
 
-Specifying states within a dSeq.
-  ```mDm
-  input, validateInput, processed
-  processed, computeOutput, result
-  ```
+### Description of dStates:
 
-GPT
+- **Input**: This stage involves the collection, preprocessing, or provisioning of data necessary for executing the subsequent processing logic.
+- **Processing**: At this stage, the actual logic or operations are applied to the input data. This could involve computation, data manipulation, or any form of data processing.
+- **Output**: The final step involves presenting, storing, or forwarding the processed results. Outputs may include displaying on a screen, writing to a file, or passing data to the next process.
 
-Die dStates innerhalb einer dSeq (direct sequence) in mDm repräsentieren die drei Kernschritte: Eingabe, Verarbeitung und Ausgabe. Diese Elemente bilden zusammen das fundamentale Konstrukt für den strukturierten Programmablauf in mDm und spiegeln das klassische Input-Process-Output (IPO) Modell wider.
-Beschreibung der dStates:
+### ASCII Diagrams for Potential Use Cases:
 
-    Eingabe (Input): Dieser Schritt bezieht sich auf die Sammlung, Vorverarbeitung oder Bereitstellung von Daten, die für die Ausführung der Verarbeitungslogik benötigt werden.
-    Verarbeitung (Process): Hier erfolgt die eigentliche Logik oder Operation, die auf die Eingabedaten angewendet wird. Dies kann eine Berechnung, Datenmanipulation oder jede Form von Datenverarbeitung sein.
-    Ausgabe (Output): Der letzte Schritt beinhaltet die Präsentation, Speicherung oder Weiterleitung der Verarbeitungsergebnisse. Dies kann die Ausgabe auf einem Bildschirm, das Schreiben in eine Datei oder die Übergabe der Daten an einen nächsten Prozess sein.
+**Simple Data Processing**:
 
-ASCII-Diagramme für mögliche Verwendungszwecke:
-Einfache Datenverarbeitung:
+Here, we see a dSeq that consists of a straightforward input, processing, and output sequence. An example could be reading a value, doubling it, and then displaying the result.
 
-Hier sehen wir eine dSeq, die aus einer einfachen Eingabe, Verarbeitung und Ausgabe besteht. Dies könnte z.B. das Lesen eines Wertes, dessen Verdopplung und das Ausgeben des Ergebnisses darstellen.
+```ascii
+ [Input] ---> [Processing] ---> [Output]
+   (read)       (double)       (display)
+```
 
-scss
+**Nested Processing**:
 
- [Eingabe] ---> [Verarbeitung] ---> [Ausgabe]
-   (lesen)       (verdoppeln)       (ausgeben)
+In this example, we observe how one dSeq utilizes another dSeq as part of its processing step. This allows for complex, composite workflows.
 
-Verschachtelte Verarbeitung:
-
-In diesem Beispiel sehen wir, wie eine dSeq eine andere dSeq als Teil ihres Verarbeitungsschrittes nutzt. Dies ermöglicht komplexe, zusammengesetzte Abläufe.
-
-scss
-
- [Eingabe] ---> [   Verarbeitung   ] ---> [Ausgabe]
+```ascii
+ [Input] ---> [   Processing   ] ---> [Output]
                   /               \
-            [Eingabe]         [Ausgabe]
+            [Input]         [Output]
              (inner)           (inner)
+```
 
-Bedingte Ausführung:
+**Conditional Execution**:
 
-Durch die Einführung einer bedingten Logik innerhalb der Verarbeitungsphase können Entscheidungen getroffen werden, welche die Ausführung weiterer dSeqs beeinflussen.
+By integrating conditional logic within the processing phase, decisions can be made that influence the execution of further dSeqs.
 
-css
-
- [Eingabe] ---> [Verarbeitung] ---> [Ausgabe]
+```ascii
+ [Input] ---> [Processing] ---> [Output]
                   |     ^
                   v     |
-               [Bedingung]
+               [Condition]
                /        \
      [dSeq A]            [dSeq B]
+```
 
-Schleifenkonstrukt:
+**Loop Construct**:
 
-Schleifen können durch das Rückführen der Ausgabe auf die Eingabe einer dSeq realisiert werden, was wiederholte Verarbeitung bis zu einem Abbruchkriterium ermöglicht.
+Loops can be realized by feeding the output back to the input of a dSeq, enabling repeated processing until a termination criterion is met.
 
-scss
-
+```ascii
                 ___________________
                |                   |
                v                   |
- [Eingabe] ---> [Verarbeitung] ---> [Ausgabe]
-                  | (wiederholen)
+ [Input] ---> [Processing] ---> [Output]
+                  | (repeat)
                   v
-              [Abbruch?]
+              [Break? ==> Output = '_']
+```
 
-Diese Diagramme verdeutlichen, wie dStates als Bausteine innerhalb der mDm-Programmierung genutzt werden können, um strukturierte und modular aufgebaute Softwarelösungen zu erstellen. Die Flexibilität und Klarheit, die durch das dSeq-Konstrukt geboten wird, erlaubt es Entwicklern, komplexe Probleme auf intuitive Weise zu modellieren und zu lösen.
+These diagrams illustrate how dStates can be used as building blocks within mDm programming to create structured and modularly built software solutions. The flexibility and clarity provided by the dSeq construct allow developers to intuitively model and solve complex problems.
