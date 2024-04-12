@@ -12,6 +12,12 @@ The runtime environment utilizes information about the bit size of each type to 
 
 3. **Efficient Memory Usage**: The precise definition of data types and their sizes allows for optimized memory usage, allocating exactly the amount of memory needed without over-allocation.
 
+### Dynamic Memory Management
+The ability to store data either directly adjacent to the dNib or through address references allows the system to dynamically decide how and where to allocate memory. This functionality is crucial for conserving memory space when dealing with small data values that fit directly next to the dNib, eliminating the need for additional references. For larger data structures or those capable of dynamic growth, such as lists or strings, indirect referencing enables memory allocation to be tailored to needs and available in variable sizes.
+
+### Efficient Memory Usage
+The separation of metadata (dNib) from data enables a more efficient use of memory. Since the dNib carries information about the data type and structure, memory can be precisely allocated according to the requirements of data allocation, which leads to minimized waste of memory space. For example, empty or undefined areas can be easily identified and reused or overwritten without the need for extensive garbage collection processes.
+
 ### Implementation Considerations
 
 - **Type-Based Memory Allocation**: The runtime must be capable of accurately calculating the memory size for each type and data structure defined in `type6.mdmD` and allocating memory accordingly.

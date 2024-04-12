@@ -1,6 +1,7 @@
 ### Type System and Type Verification
 
 The foundation of type safety in mDm is built upon a robust type system that is defined in a declarative manner, using type definitions imported from `types6.mdmD`. These definitions are essential for enforcing type safety throughout the program's execution.
+Emphasizing explicit definitions over implicit assumptions, this principle in mDm aims to eliminate uncertainties in data type interpretation and usage. mDm's approach to programming language design is ambitious and innovative, incorporating structured programming principles with modern features like macros, groupings, and advanced data handling. Let's explore the detailed syntax description and how type declarations for common data types are structured in mDm, highlighting its unique paradigm focused on input, processing, and output (dSeqs).
 
 #### Importing Type Definitions
 

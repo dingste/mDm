@@ -1,1 +1,7 @@
 The use of address references enables the creation of complex, linked data structures, such as linked lists, trees, and graphs, without the need to hold the entire structure in a continuous memory block. This makes it easier to allocate memory for new elements since only the memory for the element itself and not for the entire structure needs to be allocated. Additionally, structure elements can be distributed in memory, optimizing memory usage.
+
+### Simplification of Memory Release
+The clear marking of the end of data and type by the dNib facilitates the release of memory. When a data block is no longer needed, the system can examine the dNib to determine how and where the data are stored (directly or indirectly), and then free up the appropriate memory. This feature is particularly useful in environments with manual memory management but can also support automated garbage collection procedures.
+
+### Support for Complex Data Structures:
+The use of address references enables the creation of complex, linked data structures, such as linked lists, trees, and graphs, without the need to maintain the entire structure in a continuous memory block. This facilitates the allocation of memory for new elements as only the memory for the element itself, and not for the entire structure, needs to be allocated. Furthermore, structural elements can be dispersed in memory, optimizing memory usage.

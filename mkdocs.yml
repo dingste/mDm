@@ -1,8 +1,9 @@
 site_name: 'mDm: move da` machine'
-site_url: https://example.com
+site_url: https://dingste.github.io/mDm
 site_description: A Comprehensive Guide to a Structured Programming Language Paradigma
 site_author: Dieter Steuten
 repo_url: https://github.com/dingste/mDm
+use_directory_urls: false
 
 theme:
   name: material
@@ -23,16 +24,16 @@ plugins:
   - git-revision-date-localized:
       enable_creation_date: true
   - search
-  - build_plantuml:
-      render: 'local'
-      bin_path: '/usr/bin/plantuml' 
-      disable_ssl_certificate_validation: true 
-      output_format: 'svg' # or "png"
-      allow_multiple_roots: false 
-      diagram_root: 'docs/diagrams'
-      output_folder: 'docs/diagrams/out'
-      input_folder: 'docs/diagrams/src'
-      input_extensions: ''
+#  - build_plantuml:
+#      render: 'local'
+#      bin_path: '/usr/bin/plantuml' 
+#      disable_ssl_certificate_validation: true 
+#      output_format: 'svg' # or "png"
+#      allow_multiple_roots: false 
+#      diagram_root: 'docs/diagrams'
+#      output_folder: 'docs/diagrams/out'
+#      input_folder: 'docs/diagrams/src'
+#      input_extensions: ''
   - extra-sass
   - with-pdf:
       author: Dieter Steuten
@@ -61,4 +62,4 @@ nav:
       - Type & Error System: advanced-topics/type-error-system.md
       - Unsort: advanced-topics/unsort.md
   - Conclusion: conclusion.md
-
+  - Last Commit: "{{ config.git_revision }}"
