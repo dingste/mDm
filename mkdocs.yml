@@ -1,5 +1,5 @@
 site_name: 'mDm: move da` machine'
-site_url: https://dingste.github.io/mDm
+site_url: https://dingste.github.io/mDm/index.html
 site_description: A Comprehensive Guide to a Structured Programming Language Paradigma
 site_author: Dieter Steuten
 repo_url: https://github.com/dingste/mDm
@@ -62,4 +62,3 @@ nav:
       - Type & Error System: advanced-topics/type-error-system.md
       - Unsort: advanced-topics/unsort.md
   - Conclusion: conclusion.md
-  - Last Commit: "{{ config.git_revision }}"
